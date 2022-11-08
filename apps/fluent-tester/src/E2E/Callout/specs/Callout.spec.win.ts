@@ -2,7 +2,7 @@ import NavigateAppPage from '../../common/NavigateAppPage';
 import CalloutPageObject from '../pages/CalloutPageObject.win';
 import { CALLOUT_ACCESSIBILITY_LABEL } from '../../../TestComponents/Callout/consts';
 import { PAGE_TIMEOUT, BOOT_APP_TIMEOUT, CALLOUT_A11Y_ROLE } from '../../common/consts';
-import { ComponentSelector } from '../../common/BasePage';
+import { ComponentSelector, printFallbacks } from '../../common/BasePage';
 
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Callout Testing Initialization', function () {
@@ -56,5 +56,9 @@ describe('Callout Functional Testing', () => {
 
   afterEach(async () => {
     await CalloutPageObject.closeCallout();
+  });
+
+  afterAll(() => {
+    printFallbacks();
   });
 });

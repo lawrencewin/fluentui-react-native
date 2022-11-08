@@ -11,7 +11,13 @@ const jasmineDefaultTimeout = 60000; // 60 seconds for Jasmine test timeout
 
 exports.config = {
   runner: 'local', // Where should your test be launched
-  specs: ['../fluent-tester/src/E2E/Callout/specs/*.win.ts'],
+  specs: [
+    '../fluent-tester/src/E2E/Callout/specs/*.win.ts',
+    '../fluent-tester/src/E2E/ContextualMenu/specs/*.win.ts',
+    '../fluent-tester/src/E2E/Menu/specs/*.win.ts',
+    '../fluent-tester/src/E2E/MenuButton/specs/*.win.ts',
+    '../fluent-tester/src/E2E/MenuButtonExperimental/specs/*.win.ts',
+  ],
   exclude: [
     '../fluent-tester/src/E2E/Icon/specs/*.win.ts',
     '../fluent-tester/src/E2E/Svg/specs/*.win.ts',
@@ -40,8 +46,8 @@ exports.config = {
   bail: 0, // If you only want to run your tests until a specific amount of tests have failed use bail (default is 0 - don't bail, run all tests).
   waitforTimeout: defaultWaitForTimeout, // Default timeout for all waitForXXX commands.
   connectionRetryTimeout: defaultConnectionRetryTimeout, // Timeout for any WebDriver request to a driver or grid.
-  connectionRetryCount: 3, // Maximum count of request retries to the Selenium server.
-  specFileRetries: 3, // The number of times to retry the entire spec file when it fails as a whole.
+  connectionRetryCount: 0, // Maximum count of request retries to the Selenium server.
+  specFileRetries: 0, // The number of times to retry the entire spec file when it fails as a whole.
 
   port: 4723, // default appium port
   services: [

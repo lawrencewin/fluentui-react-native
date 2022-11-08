@@ -5,7 +5,7 @@ import {
   EXPERIMENTAL_MENU_BUTTON_ACCESSIBILITY_LABEL,
   EXPERIMENTAL_MENU_BUTTON_TEST_COMPONENT_LABEL,
 } from '../../../TestComponents/MenuButtonExperimental/consts';
-import { ComponentSelector } from '../../common/BasePage';
+import { ComponentSelector, printFallbacks } from '../../common/BasePage';
 
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Experimental MenuButton Testing Initialization', function () {
@@ -52,5 +52,9 @@ describe('Experimental MenuButton Accessibility Testing', () => {
       EXPERIMENTAL_MENU_BUTTON_TEST_COMPONENT_LABEL,
     );
     await expect(await ExperimentalMenuButtonPageObject.didAssertPopup()).toBeFalsy(ExperimentalMenuButtonPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+  });
+
+  afterAll(() => {
+    printFallbacks();
   });
 });

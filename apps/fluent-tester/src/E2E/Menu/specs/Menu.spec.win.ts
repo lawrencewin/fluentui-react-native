@@ -2,6 +2,7 @@ import NavigateAppPage from '../../common/NavigateAppPage';
 import MenuPageObject, { MenuComponentSelector } from '../pages/MenuPageObject';
 import { PAGE_TIMEOUT, BOOT_APP_TIMEOUT, Keys, MENUITEM_A11Y_ROLE, ExpandCollapseState } from '../../common/consts';
 import { MENUITEM_TEST_LABEL } from '../../../TestComponents/Menu/consts';
+import { printFallbacks } from '../..//common/BasePage';
 
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Menu Testing Initialization', function () {
@@ -70,5 +71,9 @@ describe('Menu Functional Testing', () => {
     await MenuPageObject.sendKey(MenuComponentSelector.PrimaryComponent, Keys.SPACE);
     await expect(await MenuPageObject.didMenuOpen()).toBeTruthy();
     await expect(await MenuPageObject.didAssertPopup()).toBeFalsy(MenuPageObject.ERRORMESSAGE_ASSERT);
+  });
+
+  afterAll(() => {
+    printFallbacks();
   });
 });

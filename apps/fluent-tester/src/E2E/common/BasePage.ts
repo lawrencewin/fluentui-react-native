@@ -1,4 +1,4 @@
-import { ElementReference } from '@wdio/protocols';
+// import { ElementReference } from '@wdio/protocols/build';
 import { Attribute, Keys, ROOT_VIEW } from './consts';
 import { TESTPAGE_BUTTONS_SCROLLVIEWER } from '../../TestComponents/Common/consts';
 import {} from './consts';
@@ -8,9 +8,10 @@ const DUMMY_CHAR = '';
 const PLATFORM = process.env['E2ETEST_PLATFORM'];
 export const COMPONENT_SCROLL_COORDINATES = { x: -0, y: -100 }; // These are the offsets. Y is negative because we want the touch to move up (and thus it scrolls down)
 
-let rootView: WebdriverIO.Element | null = null;
+const searchRoots: WebdriverIO.Element[] = [];
+let fallbacks = 0;
 
-const elementRefCache: { [selector: string]: ElementReference } = {};
+// const elementRefCache: { [selector: string]: ElementReference } = {};
 
 /* Win32/UWP-Specific Selector. We use this to get elements on the test page */
 export async function By(identifier: string) {
@@ -22,43 +23,41 @@ export async function By(identifier: string) {
 }
 
 async function QueryWithChaining(identifier: string) {
-  if (rootView === null) {
-    // Most of the elements we're searching for will be children of this rootView node.
-    rootView = await $('~' + ROOT_VIEW);
+  if (searchRoots.length === 0) {
+    // The first view to check is our designated root view.
+    searchRoots.push(await $('~' + ROOT_VIEW));
   }
-  let queryResult: WebdriverIO.Element;
-  queryResult = await rootView.$('~' + identifier);
-  if (queryResult.error) {
-    // In some cases, such as opened ContextualMenu items, the element nodes are not children of the rootView node, meaning we need to start our search from the top of the tree.
-    queryResult = await ChainingFallback(identifier);
+  for (const root of searchRoots) {
+    const queryResult = root.$('~' + identifier);
+    if (!queryResult.error) {
+      return queryResult;
+    }
   }
-  return queryResult;
+  // no elements found in our saved search roots, lets fallback
+  return await ChainingFallback(identifier);
 }
 
 async function ChainingFallback(identifier: string): Promise<WebdriverIO.Element> {
+  fallbacks += 1;
   // if we're here, it's most likely because we're querying for a Callout item outside of our query root
   switch (PLATFORM) {
     case NativePlatform.Win32: {
-      let ref: ElementReference;
-      if (identifier in elementRefCache) {
-        ref = elementRefCache[identifier];
-        console.log('fetching from cache');
-      } else {
-        ref = await driver.findElement('accessibility id', identifier);
-      }
-      const queryResult = await $(ref);
-      if (queryResult.error) {
-        console.log('Failed to find element :(.');
-      } else {
-        console.log('success - caching ref');
-        elementRefCache[identifier] = ref;
-        return queryResult;
+      const parent = await $(`//*[@AutomationId="${identifier}"]/..`);
+      if (!parent.error) {
+        // add the parent as a list of places to search for
+        searchRoots.push(parent);
+        return await parent.$('~' + identifier);
       }
       break;
     }
     default:
   }
   return await $('~' + identifier);
+}
+
+export function printFallbacks() {
+  console.log('-----------------');
+  console.log(`NUMBER OF CHAINED FALLBACKS: ${fallbacks}`);
 }
 
 /* The values in this enum map to the UI components we want to test in our app. We use this to

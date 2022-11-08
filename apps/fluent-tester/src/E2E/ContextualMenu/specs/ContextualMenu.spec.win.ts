@@ -1,6 +1,7 @@
 import NavigateAppPage from '../../common/NavigateAppPage';
 import ContextualMenuPageObjectObject, { ContextualMenuSelector } from '../pages/ContextualMenuPageObject.win';
 import { PAGE_TIMEOUT, BOOT_APP_TIMEOUT, Keys } from '../../common/consts';
+import { printFallbacks } from '../../common/BasePage';
 
 // Before testing begins, allow up to 60 seconds for app to open
 describe('ContextualMenu Testing Initialization', function () {
@@ -49,5 +50,6 @@ describe('ContextualMenu Functional Tests', async () => {
   /* Runs after all tests. This ensures the ContextualMenu closes. If it stays open, the test driver won't be able to close the test app */
   afterAll(async () => {
     await ContextualMenuPageObjectObject.sendKey(ContextualMenuSelector.ContextualMenu, Keys.ESCAPE); // Reset ContextualMenu state for next test
+    printFallbacks();
   });
 });
