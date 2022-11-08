@@ -1,6 +1,7 @@
-import { Keys, ROOT_VIEW } from './consts';
+import { ElementReference } from '@wdio/protocols';
+import { Attribute, Keys, ROOT_VIEW } from './consts';
 import { TESTPAGE_BUTTONS_SCROLLVIEWER } from '../../TestComponents/Common/consts';
-import { Attribute } from './consts';
+import {} from './consts';
 
 const DUMMY_CHAR = '';
 // The E2ETEST_PLATFORM environment variable should be set in the beforeSession hook in the wdio.conf file for the respective platform
@@ -8,6 +9,8 @@ const PLATFORM = process.env['E2ETEST_PLATFORM'];
 export const COMPONENT_SCROLL_COORDINATES = { x: -0, y: -100 }; // These are the offsets. Y is negative because we want the touch to move up (and thus it scrolls down)
 
 let rootView: WebdriverIO.Element | null = null;
+
+const elementRefCache: { [selector: string]: ElementReference } = {};
 
 /* Win32/UWP-Specific Selector. We use this to get elements on the test page */
 export async function By(identifier: string) {
@@ -18,19 +21,44 @@ export async function By(identifier: string) {
   return await QueryWithChaining(identifier);
 }
 
-async function QueryWithChaining(identifier) {
+async function QueryWithChaining(identifier: string) {
   if (rootView === null) {
     // Most of the elements we're searching for will be children of this rootView node.
     rootView = await $('~' + ROOT_VIEW);
   }
-  const selector = '~' + identifier;
   let queryResult: WebdriverIO.Element;
-  queryResult = await rootView.$(selector);
+  queryResult = await rootView.$('~' + identifier);
   if (queryResult.error) {
     // In some cases, such as opened ContextualMenu items, the element nodes are not children of the rootView node, meaning we need to start our search from the top of the tree.
-    queryResult = await $(selector);
+    queryResult = await ChainingFallback(identifier);
   }
   return queryResult;
+}
+
+async function ChainingFallback(identifier: string): Promise<WebdriverIO.Element> {
+  // if we're here, it's most likely because we're querying for a Callout item outside of our query root
+  switch (PLATFORM) {
+    case NativePlatform.Win32: {
+      let ref: ElementReference;
+      if (identifier in elementRefCache) {
+        ref = elementRefCache[identifier];
+        console.log('fetching from cache');
+      } else {
+        ref = await driver.findElement('accessibility id', identifier);
+      }
+      const queryResult = await $(ref);
+      if (queryResult.error) {
+        console.log('Failed to find element :(.');
+      } else {
+        console.log('success - caching ref');
+        elementRefCache[identifier] = ref;
+        return queryResult;
+      }
+      break;
+    }
+    default:
+  }
+  return await $('~' + identifier);
 }
 
 /* The values in this enum map to the UI components we want to test in our app. We use this to
