@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Move Divider package from experimental to v1",
+  "packageName": "@fluentui-react-native/divider",
+  "email": "winlarry@microsoft.com",
+  "dependentChangeType": "none"
+}
