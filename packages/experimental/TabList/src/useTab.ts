@@ -15,27 +15,16 @@ import { TabListContext } from './TabList';
  */
 export const useTab = (props: TabProps): TabInfo => {
   const defaultComponentRef = React.useRef<IFocusable>(null);
-  const {
-    accessibilityLabel,
-    accessible,
-    headerText,
-    componentRef = defaultComponentRef,
-    itemKey,
-    disabled,
-    itemCount,
-    icon,
-    ...rest
-  } = props;
+  const { accessibilityLabel, accessible, componentRef = defaultComponentRef, value, disabled, icon, ...rest } = props;
   // Grabs the context information from Tabs (currently selected TabsItem and client's onTabsClick callback).
   const info = React.useContext(TabListContext);
 
   const changeSelection = React.useCallback(() => {
-    if (itemKey != info.selectedKey) {
-      info.onTabsClick && info.onTabsClick(itemKey);
-      info.getTabId && info.getTabId(itemKey, info.tabsItemKeys.findIndex((x) => x == itemKey) + 1);
+    if (value != info.selectedValue) {
+      // info.onTabSelect && info.onTabSelect(value);
       info.updateSelectedTabsItemRef && componentRef && info.updateSelectedTabsItemRef(componentRef);
     }
-  }, [componentRef, info, itemKey]);
+  }, [componentRef, info, value]);
 
   const changeSelectionWithFocus = useOnPressWithFocus(componentRef, changeSelection);
 
@@ -63,31 +52,29 @@ export const useTab = (props: TabProps): TabInfo => {
   element in Tabs. Since the componentRef isn't generated until after initial render,
   we must update it once here. */
   React.useEffect(() => {
-    if (itemKey == info.selectedKey) {
+    if (value == info.selectedValue) {
       info.updateSelectedTabsItemRef && componentRef && info.updateSelectedTabsItemRef(componentRef);
     }
-  }, [componentRef, info, itemKey]);
+  }, [componentRef, info, value]);
 
   return {
     props: {
       ...pressable.props,
       accessible: accessible ?? true,
       accessibilityRole: 'tab',
-      accessibilityLabel: accessibilityLabel || headerText,
+      accessibilityLabel: accessibilityLabel,
       focusable: !disabled ?? true,
-      headerText: headerText ?? '',
-      accessibilityState: { disabled: disabled, selected: info.selectedKey === itemKey },
+      accessibilityState: { disabled: disabled, selected: info.selectedValue === value },
       accessibilityActions: [{ name: 'Select' }],
       onAccessibilityAction: onAccessibilityAction,
-      itemCount: itemCount,
       ref: useViewCommandFocus(componentRef),
-      itemKey: itemKey,
+      value: value,
       icon: icon,
       ...onKeyUpProps,
     },
     state: {
       ...pressable.state,
-      selected: itemKey === info.selectedKey,
+      selected: value === info.selectedValue,
     },
   };
 };

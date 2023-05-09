@@ -14,16 +14,15 @@ import { TabListContext } from './TabList';
  */
 export const useTab = (props: TabProps): TabInfo => {
   const defaultComponentRef = React.useRef(null);
-  const { accessibilityLabel, accessible, headerText, componentRef = defaultComponentRef, itemKey, disabled, itemCount, ...rest } = props;
+  const { accessibilityLabel, accessible, componentRef = defaultComponentRef, value, disabled, ...rest } = props;
   // Grabs the context information from Tabs (currently selected TabsItem and client's onTabsClick callback).
   const info = React.useContext(TabListContext);
 
   const changeSelection = React.useCallback(() => {
     info.focusZoneRef?.current?.focus(); // GH #964, FocusZone not implemented on windows.
-    info.onTabsClick && info.onTabsClick(itemKey);
-    info.getTabId && info.getTabId(itemKey, info.tabsItemKeys.findIndex((x) => x == itemKey) + 1);
+    // info.onTabSelect && info.onTabSelect(value);
     info.updateSelectedTabsItemRef && componentRef && info.updateSelectedTabsItemRef(componentRef);
-  }, [componentRef, info, itemKey]);
+  }, [componentRef, info]);
 
   const pressable = usePressableState({
     ...rest,
@@ -32,7 +31,7 @@ export const useTab = (props: TabProps): TabInfo => {
 
   const state: TabState = {
     ...pressable.state,
-    selected: info.selectedKey === itemKey,
+    selected: info.selectedValue === value,
   };
 
   // Used when creating accessibility properties in mergeSettings below.
@@ -44,14 +43,14 @@ export const useTab = (props: TabProps): TabInfo => {
           break;
       }
     },
-    [info, itemKey],
+    [info, value],
   );
 
   /* We use the componentRef of the currently selected tabsItem to maintain the default tabbable
   element in Tabs. Since the componentRef isn't generated until after initial render,
   we must update it once here. */
   React.useEffect(() => {
-    if (itemKey == info.selectedKey) {
+    if (value == info.selectedValue) {
       info.updateSelectedTabsItemRef && componentRef && info.updateSelectedTabsItemRef(componentRef);
     }
   }, []);
@@ -63,14 +62,12 @@ export const useTab = (props: TabProps): TabInfo => {
       accessible: accessible ?? true,
       ref: useViewCommandFocus(componentRef),
       accessibilityRole: 'tab',
-      accessibilityLabel: accessibilityLabel || headerText,
+      accessibilityLabel: accessibilityLabel,
       focusable: false,
-      headerText: headerText ?? '',
-      accessibilityState: { disabled: disabled, selected: info.selectedKey === itemKey },
+      accessibilityState: { disabled: disabled, selected: info.selectedValue === value },
       accessibilityActions: [{ name: 'Select' }],
       onAccessibilityAction: onAccessibilityAction,
-      itemCount: itemCount,
-      itemKey: itemKey,
+      value: value,
     },
     state: {
       ...state,

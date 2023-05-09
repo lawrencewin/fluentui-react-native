@@ -12,18 +12,14 @@ import { tabListName } from './TabList.types';
 import { useTabList } from './useTabList';
 
 export const TabListContext = React.createContext<TabListContextData>({
-  selectedKey: null,
-  onTabsClick: (/* key: string */) => {
+  selectedValue: null,
+  onTabSelect: (/* key: string */) => {
     return;
-  },
-  getTabId: (/* key:string, index: number*/) => {
-    return null;
   },
   updateSelectedTabsItemRef: (/* ref: React.RefObject<any>*/) => {
     return;
   },
-  tabsItemKeys: [],
-  views: null,
+  tabValues: [],
 });
 
 export const TabList = compose<TabListType>({
@@ -47,21 +43,21 @@ export const TabList = compose<TabListType>({
         return null;
       }
 
-      const { label, defaultTabbableElement, isCircularNavigation, ...mergedProps } = mergeProps(tabs.props, final);
+      const { defaultTabbableElement, isCircularNavigation, ...mergedProps } = mergeProps(tabs.props, final);
 
       // Populate the tabsItemKeys array.
       if (children) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore - TODO, fix typing error
-        tabs.state.context.tabsItemKeys = React.Children.map(children, (child: React.ReactChild) => {
+        tabs.state.context.tabValues = React.Children.map(children, (child: React.ReactChild) => {
           if (React.isValidElement(child)) {
             // Sets default selected tabItem.
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore - TODO, fix typing error
-            if (tabs.state?.context.selectedKey == null && !child.props.disabled) {
+            if (tabs.state?.context.selectedValue == null && !child.props.disabled) {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore - TODO, fix typing error
-              tabs.state.context.selectedKey = child.props.itemKey;
+              tabs.state.context.selectedValue = child.props.itemKey;
             }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore - TODO, fix typing error

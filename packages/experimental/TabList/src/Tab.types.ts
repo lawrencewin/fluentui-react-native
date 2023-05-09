@@ -2,7 +2,7 @@ import type * as React from 'react';
 import type { ViewStyle, ColorValue } from 'react-native';
 
 import type { IViewProps } from '@fluentui-react-native/adapters';
-import type { IconProps, IconSourcesType } from '@fluentui-react-native/icon';
+import type { IconPropsV1 as IconProps } from '@fluentui-react-native/icon';
 import type { IFocusable, PressableState, PressablePropsExtended } from '@fluentui-react-native/interactive-hooks';
 import type { TextProps } from '@fluentui-react-native/text';
 import type { FontTokens, IBorderTokens } from '@fluentui-react-native/tokens';
@@ -29,11 +29,6 @@ export interface TabTokens extends FontTokens, IBorderTokens {
    * The icon color.
    */
   iconColor?: string;
-
-  /**
-   * Source URL or name of the icon to show on the TabsItem.
-   */
-  icon?: IconSourcesType;
 
   /**
    * Text to show on the TabsItem.
@@ -105,19 +100,9 @@ export interface TabTokens extends FontTokens, IBorderTokens {
 
 export interface TabProps extends Omit<PressablePropsExtended, 'onPress'> {
   /**
-   * The text string for the option
-   */
-  headerText?: string;
-
-  /**
-   * The number for the TabsItem count
-   */
-  itemCount?: number;
-
-  /**
    * A unique key-identifier for each option
    */
-  itemKey: string;
+  value: unknown;
 
   /**
    * Whether or not the tabs item is selectable
@@ -127,7 +112,7 @@ export interface TabProps extends Omit<PressablePropsExtended, 'onPress'> {
   /**
    * Source URL or name of the icon to show on the Button.
    */
-  icon?: IconSourcesType;
+  icon?: IconProps;
 
   /**
    * A RefObject to access the IButton interface. Use this to access the public methods and properties of the component.

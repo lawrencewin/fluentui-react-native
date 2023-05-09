@@ -3,6 +3,7 @@ import type { View } from 'react-native';
 
 import type { IViewProps } from '@fluentui-react-native/adapters';
 import type { FocusZoneProps } from '@fluentui-react-native/focus-zone';
+import type { InteractionEvent } from '@fluentui-react-native/interactive-hooks';
 import type { FontTokens, IForegroundColorTokens, IBackgroundColorTokens } from '@fluentui-react-native/tokens';
 
 export const tabListName = 'TabList';
@@ -11,17 +12,12 @@ export interface TabListContextData {
   /**
    * The currently selected TabsItem's key
    */
-  selectedKey: string | null;
-
-  /**
-   * Index of currently selected key
-   */
-  getTabId?: (key: string, index: number) => string | null;
+  selectedValue: unknown;
 
   /**
    * Updates the selected tabsItem and calls the client’s onTabsClick callback
    */
-  onTabsClick?: (key: string) => void;
+  onTabSelect?: (e: InteractionEvent, data: { value: unknown }) => void;
 
   /**
    * Updates the selected tabsItem's ref to set as the default tabbable element
@@ -31,12 +27,7 @@ export interface TabListContextData {
   /**
    * Array of tabsItem keys in the group
    */
-  tabsItemKeys?: string[];
-
-  /**
-   * A Map to for a TabItems corresponding view
-   */
-  views?: Map<string, React.ReactNode[]> | null;
+  tabValues?: unknown[];
 
   /**
    * Reference to the Focus Container as there is no FocusZone on windows.
@@ -47,39 +38,46 @@ export interface TabListContextData {
 
 export interface TabListTokens extends IForegroundColorTokens, FontTokens, IBackgroundColorTokens {}
 
+export type TabListAppearance = 'transparent' | 'subtle';
+export type TabListSize = 'small' | 'medium' | 'large';
+
 export interface TabListProps extends Pick<FocusZoneProps, 'isCircularNavigation' | 'defaultTabbableElement'>, IViewProps {
   /**
-   * Descriptive label for the Tabs. This will be displayed as the title of the Tabs to the user
+   * Visual appearance of the TabList, affecting header hover / selection background.
    */
-  label?: string;
+  appearance?: TabListAppearance;
 
   /**
    * The key of the TabsItem that will initially be selected
    */
-  defaultSelectedKey?: string;
+  defaultSelectedValue?: unknown;
 
   /**
-   * The key of the selected option. If you provide this, you must maintain selection state by observing
-   * onTabsClick events and passing a new value in when changed. This overrides defaultSelectedKey
-   * and makes the Tabs a controlled component. This prop is mutually exclusive to defaultSelectedKey.
+   * Flag to disable all tabs
    */
-  selectedKey?: string;
+  disabled?: boolean;
 
   /**
    * Callback for receiving a notification when the choice has been changed
    */
-  onTabsClick?: (key: string) => void;
+  onTabSelect?: (e: InteractionEvent, data: { value: unknown }) => void;
 
   /**
-   * Callback to customize how IDs are generated for each tab header.
-   * Useful if you're rendering content outside and need to connect accessibility-labelledby.
+   * The value of the selected option. If you provide this, you must maintain selection state by observing
+   * onTabsClick events and passing a new value in when changed. This overrides defaultSelectedValue
+   * and makes the Tabs a controlled component. This prop is mutually exclusive to defaultSelectedValue.
    */
-  getTabId?: (key: string, index: number) => string;
+  selectedValue?: unknown;
 
   /**
-   * Sets whether to only render the header
+   * Flag to change the size of the tabs.
    */
-  headersOnly?: boolean;
+  size?: TabListSize;
+
+  /**
+   * Flag to render the list of tabs horizontally or vertically
+   */
+  vertical?: boolean;
 
   /**
    * A RefObject to access Tabs.

@@ -10,7 +10,6 @@ import { TextV1 as Text } from '@fluentui-react-native/text';
 import { stylingSettings } from './Tab.styling';
 import type { TabType, TabProps } from './Tab.types';
 import { tabName } from './Tab.types';
-import { TabListContext } from './TabList';
 import { useTab } from './useTab';
 
 export const Tab = compose<TabType>({
@@ -27,7 +26,6 @@ export const Tab = compose<TabType>({
     const tabsItem = useTab(userProps);
 
     const iconProps = createIconProps(userProps.icon);
-    const context = React.useContext(TabListContext);
 
     // Grab the styled slots.
     const Slots = useSlots(userProps, (layer) => tabsItem.state[layer] || userProps[layer]);
@@ -39,19 +37,18 @@ export const Tab = compose<TabType>({
 
       const { icon, itemKey, itemCount, headerText, ...mergedProps } = mergeProps(tabsItem.props, final);
 
-      let containerText = headerText;
-      if (itemCount !== undefined) {
-        containerText += ` (${itemCount})`;
+      let containerText: string | null = null;
+      for (const child of children) {
+        if (typeof child === 'string') {
+          containerText = child;
+        }
       }
-
-      const renderContent = !!headerText || itemCount !== undefined;
-      context?.views?.set(itemKey, children);
 
       return (
         <Slots.root {...mergedProps}>
           <Slots.stack>
             {icon && <Slots.icon {...iconProps} />}
-            {renderContent && <Slots.content key="content">{containerText}</Slots.content>}
+            <Slots.content key="content">{containerText}</Slots.content>
           </Slots.stack>
           <Slots.indicator />
         </Slots.root>

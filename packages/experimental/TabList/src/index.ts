@@ -1,7 +1,7 @@
-export { tabName as tabsItemName } from './Tab.types';
+export { tabName } from './Tab.types';
 export type { TabType, TabInfo, TabProps, TabSlotProps, TabState, TabTokens } from './Tab.types';
-export { Tab as TabsItem } from './Tab';
-export { tabListName as tabsName } from './TabList.types';
+export { Tab } from './Tab';
+export { tabListName } from './TabList.types';
 export type {
   TabListContextData,
   TabListInfo,
@@ -11,4 +11,4 @@ export type {
   TabListTokens,
   TabListType,
 } from './TabList.types';
-export { TabList as Tabs, TabListContext as TabsContext } from './TabList';
+export { TabList, TabListContext } from './TabList';

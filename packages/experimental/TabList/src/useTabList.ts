@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { View } from 'react-native';
 
-import { useSelectedKey } from '@fluentui-react-native/interactive-hooks';
+// import { useSelectedKey } from '@fluentui-react-native/interactive-hooks';
 
 import type { TabListProps, TabListState, TabListInfo } from './TabList.types';
 
@@ -14,9 +14,9 @@ import type { TabListProps, TabListState, TabListInfo } from './TabList.types';
  */
 export const useTabList = (props: TabListProps): TabListInfo => {
   const defaultComponentRef = React.useRef(null);
-  const { accessible, componentRef = defaultComponentRef, selectedKey, getTabId, onTabsClick, defaultSelectedKey } = props;
+  const { componentRef = defaultComponentRef, selectedValue: selectedKey } = props;
 
-  const data = useSelectedKey(selectedKey || defaultSelectedKey || null, onTabsClick);
+  // const data = useSelectedKey(selectedKey || defaultSelectedKey || null, onTabsClick);
 
   // selectedTabsItemRef should be set to default tabbale element.
   const [selectedTabsItemRef, setSelectedTabsItemRef] = React.useState(React.useRef<View>(null));
@@ -28,36 +28,17 @@ export const useTabList = (props: TabListProps): TabListInfo => {
     [setSelectedTabsItemRef],
   );
 
-  const findTabId = React.useCallback(
-    (key: string, index: number) => {
-      if (getTabId) {
-        return getTabId(key, index);
-      }
-      return `${key}-Tab${index}`;
-    },
-    [getTabId],
-  );
-
-  // Stores views to be displayed.
-  const map = new Map<string, React.ReactNode[]>();
-
   const state: TabListState = {
     context: {
-      selectedKey: selectedKey ?? data.selectedKey,
-      onTabsClick: data.onKeySelect,
-      getTabId: findTabId,
+      selectedValue: selectedKey,
+      onTabSelect: () => false,
       updateSelectedTabsItemRef: onSelectTabsItemRef,
-      views: map,
     },
-    headersOnly: props.headersOnly ?? false,
-    label: !!props.label,
   };
 
   return {
     props: {
       ...props,
-      accessible: accessible ?? true,
-      accessibilityRole: 'tablist',
       componentRef: componentRef,
       defaultTabbableElement: selectedTabsItemRef,
       isCircularNavigation: props.isCircularNavigation ?? false,

@@ -11,18 +11,14 @@ import { tabListName } from './TabList.types';
 import { useTabList } from './useTabList';
 
 export const TabListContext = React.createContext<TabListContextData>({
-  selectedKey: null,
-  onTabsClick: (/* key: string */) => {
+  selectedValue: null,
+  onTabSelect: (/* key: string */) => {
     return;
-  },
-  getTabId: (/* key:string, index: number*/) => {
-    return null;
   },
   updateSelectedTabsItemRef: (/* ref: React.RefObject<any>*/) => {
     return;
   },
-  tabsItemKeys: [],
-  views: null,
+  tabValues: [],
   focusZoneRef: null,
 });
 
@@ -43,19 +39,19 @@ export const TabList = compose<TabListType>({
     const onKeyDown = (ev: any) => {
       if (ev.nativeEvent.key === 'ArrowRight' || ev.nativeEvent.key === 'ArrowLeft') {
         const length = tabs.state.enabledKeys.length;
-        const currTabItemIndex = tabs.state.enabledKeys.findIndex((x) => x == tabs.state.context.selectedKey);
+        const currTabItemIndex = tabs.state.enabledKeys.findIndex((x) => x == tabs.state.context.selectedValue);
         let newCurrTabItemIndex;
         if (ev.nativeEvent.key === 'ArrowRight') {
           if (tabs.props.isCircularNavigation || !(currTabItemIndex + 1 == length)) {
             newCurrTabItemIndex = (currTabItemIndex + 1) % length;
-            tabs.state.context.selectedKey = tabs.state.enabledKeys[newCurrTabItemIndex];
-            tabs.state.context.onTabsClick(tabs.state.context.selectedKey);
+            tabs.state.context.selectedValue = tabs.state.enabledKeys[newCurrTabItemIndex];
+            // tabs.state.context.onTabSelect(tabs.state.context.selectedValue);
           }
         } else {
           if (tabs.props.isCircularNavigation || !(currTabItemIndex == 0)) {
             newCurrTabItemIndex = (currTabItemIndex - 1 + length) % length;
-            tabs.state.context.selectedKey = tabs.state.enabledKeys[newCurrTabItemIndex];
-            tabs.state.context.onTabsClick(tabs.state.context.selectedKey);
+            tabs.state.context.selectedValue = tabs.state.enabledKeys[newCurrTabItemIndex];
+            // tabs.state.context.onTabSelect(tabs.state.context.selectedValue);
           }
         }
       }
@@ -73,13 +69,13 @@ export const TabList = compose<TabListType>({
         return null;
       }
 
-      const { label, ...mergedProps } = mergeProps(tabs.props, final);
+      const { ...mergedProps } = mergeProps(tabs.props, final);
 
       // Populate the tabsItemKeys array
       if (children) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore - TODO, fix typing error
-        tabs.state.context.tabsItemKeys = React.Children.map(children, (child: React.ReactChild) => {
+        tabs.state.context.tabValues = React.Children.map(children, (child: React.ReactChild) => {
           if (React.isValidElement(child)) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore - TODO, fix typing error
@@ -102,9 +98,9 @@ export const TabList = compose<TabListType>({
 
         /* Sets the default selected TabsItem if a TabsItem is hidden.
         The default selected Tabsitem is the first enabled TabsItem. */
-        if (!tabs.state.enabledKeys.includes(tabs.state.context.selectedKey)) {
-          tabs.state.context.selectedKey = tabs.state.enabledKeys[0] ?? null;
-        }
+        // if (!tabs.state.enabledKeys.includes(tabs.state.context.selectedValue)) {
+        //   tabs.state.context.selectedValue = tabs.state.enabledKeys[0] ?? null;
+        // }
       }
 
       return (

@@ -32,14 +32,7 @@ export const stylingSettings: UseStylingOptions<TabProps, TabSlotProps, TabToken
       }),
       ['color', ...fontStyles.keys],
     ),
-    icon: buildProps(
-      (tokens: TabTokens) => ({
-        style: {
-          tintColor: tokens.iconColor,
-        },
-      }),
-      ['iconColor'],
-    ),
+    icon: buildProps(() => ({}), ['iconColor']),
     stack: buildProps(
       (tokens: TabTokens) => ({
         style: {
