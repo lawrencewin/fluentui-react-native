@@ -1,4 +1,5 @@
 import type { TestDescription } from './TestComponents';
+import { AATest } from './TestComponents/AATest/AATest';
 import { ActivityIndicatorTest } from './TestComponents/ActivityIndicator';
 import { AvatarTest, NativeAvatarTest } from './TestComponents/Avatar';
 import { BadgeTest } from './TestComponents/Badge';
@@ -45,6 +46,12 @@ import { ThemeTest } from './TestComponents/Theme';
 import * as Constants from '../../E2E/src/index.consts';
 
 export const tests: TestDescription[] = [
+  {
+    name: 'AATest',
+    component: AATest,
+    testPageButton: '',
+    platforms: ['win32'],
+  },
   {
     name: 'ActivityIndicator',
     component: ActivityIndicatorTest,
