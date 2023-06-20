@@ -339,6 +339,7 @@ export class Pressability {
       },
 
       onResponderMove: (event: PressEvent): void => {
+        console.log('moving!');
         if (this._config.onPressMove != null) {
           this._config.onPressMove(event);
         }
@@ -448,6 +449,9 @@ export class Pressability {
   private _receiveSignal(signal: TouchSignal, event: PressEvent): void {
     const prevState = this._touchState;
     const nextState: TouchState = Transitions[prevState][signal];
+    console.log('signal:', signal);
+    console.log('states:', prevState, '->', nextState);
+    console.log('---------------');
     if (this._responderID == null && signal === 'RESPONDER_RELEASE') {
       return;
     }
@@ -604,6 +608,8 @@ export class Pressability {
     regionLeft -= pressRectOffset?.left ?? DEFAULT_PRESS_RECT_OFFSETS.left;
     regionRight += pressRectOffset?.right ?? DEFAULT_PRESS_RECT_OFFSETS.right;
     regionTop -= pressRectOffset?.top ?? DEFAULT_PRESS_RECT_OFFSETS.top;
+
+    console.log(`Rect: (${regionTop}, ${regionLeft}), (${regionBottom}, ${regionRight}) | Touch: (${touch.pageY}, ${touch.pageX})`);
 
     return touch.pageX > regionLeft && touch.pageX < regionRight && touch.pageY > regionTop && touch.pageY < regionBottom;
   }
