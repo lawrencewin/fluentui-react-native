@@ -65,23 +65,28 @@ export function useAnimatedIndicator(props: TabListProps, selectedKey?: string):
     if (startingIndicatorLayout === null && selectedIndicatorLayout) {
       setStartingIndicatorLayout(selectedIndicatorLayout);
     } else if (startingIndicatorLayout && selectedIndicatorLayout) {
-      // animate transforms
-      let scaleValue: number, translateValue: number;
+      /**
+       * Calculate transforms. Because the scale transform's origin is at the center, we need to calculate an extra offset to add to the
+       * translate transform to place the indicator at the correct location on screen.
+       */
+      let scaleValue: number, translateValue: number, translateOffset: number;
       if (vertical) {
         scaleValue = selectedIndicatorLayout.height / startingIndicatorLayout.height;
         translateValue = selectedIndicatorLayout.y - startingIndicatorLayout.y;
+        translateOffset = (selectedIndicatorLayout.height - startingIndicatorLayout.height) / 2;
       } else {
         scaleValue = selectedIndicatorLayout.width / startingIndicatorLayout.width;
         translateValue = selectedIndicatorLayout.x - startingIndicatorLayout.x;
+        translateOffset = (selectedIndicatorLayout.width - startingIndicatorLayout.width) / 2;
       }
       Animated.timing(indicatorScale, {
         toValue: scaleValue,
-        duration: 250,
+        duration: 200,
         useNativeDriver: false,
       }).start();
       Animated.timing(indicatorTranslate, {
-        toValue: translateValue,
-        duration: 250,
+        toValue: translateValue + translateOffset,
+        duration: 200,
         useNativeDriver: false,
       }).start();
     }
@@ -96,24 +101,22 @@ export function useAnimatedIndicator(props: TabListProps, selectedKey?: string):
       const containerStyles: ViewStyle = {
         position: 'absolute',
         ...userDefinedAnimatedIndicatorStyles.container,
-        backgroundColor: 'lightgrey',
       };
       const indicatorStyles: ViewStyle = {
         borderRadius: 99,
         ...userDefinedAnimatedIndicatorStyles.indicator,
         width: width,
         height: height,
-        backgroundColor: 'red',
       };
-      // calculate transform
+      // The layout properties of the indicator are set to its first location. Transforms are used to move it on screen when the selected value changes.
       if (vertical) {
         containerStyles.start = x + tabBorderWidth + 1;
         indicatorStyles.top = y + startMargin + tabBorderWidth + 1;
-        indicatorStyles.transform = [{ scaleY: indicatorScale as any }, { translateY: indicatorTranslate as any }];
+        indicatorStyles.transform = [{ translateY: indicatorTranslate as any }, { scaleY: indicatorScale as any }];
       } else {
         containerStyles.bottom = height + y + 1;
-        indicatorStyles.start = x + startMargin + tabBorderWidth + 1;
-        indicatorStyles.transform = [{ scaleX: indicatorScale as any }, { translateX: indicatorTranslate as any }];
+        indicatorStyles.left = x + startMargin + tabBorderWidth + 1;
+        indicatorStyles.transform = [{ translateX: indicatorTranslate as any }, { scaleX: indicatorScale as any }];
       }
       return {
         container: containerStyles,
@@ -122,7 +125,7 @@ export function useAnimatedIndicator(props: TabListProps, selectedKey?: string):
     }
     return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vertical, startingIndicatorLayout, userDefinedAnimatedIndicatorStyles]);
+  }, [vertical, startingIndicatorLayout, selectedIndicatorLayout, userDefinedAnimatedIndicatorStyles]);
 
   return {
     addTabLayout,
