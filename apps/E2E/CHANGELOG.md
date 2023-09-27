@@ -1,8 +1,49 @@
 # Change Log - @fluentui-react-native/e2e-testing
 
-This log was last generated on Thu, 17 Aug 2023 01:06:01 GMT and should not be manually modified.
+This log was last generated on Mon, 18 Sep 2023 18:35:05 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.32.0
+
+Mon, 18 Sep 2023 18:35:05 GMT
+
+### Minor changes
+
+- Improve E2E Testing logic (safreibe@microsoft.com)
+
+## 1.31.1
+
+Wed, 06 Sep 2023 22:59:22 GMT
+
+### Patches
+
+- Removing E2E testing assets from apps/win32. Will host in apps/e2e (safreibe@microsoft.com)
+
+## 1.31.0
+
+Fri, 01 Sep 2023 02:16:14 GMT
+
+### Minor changes
+
+- Change name of error screenshot. Now that there's only one failure, no need to get test name. Already in failure. Makes error Screenshot more accesible (safreibe@microsoft.com)
+
+## 1.30.0
+
+Thu, 31 Aug 2023 17:15:50 GMT
+
+### Minor changes
+
+- Improving FZ E2E reliability (safreibe@microsoft.com)
+
+## 1.29.1
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Add e2e tests for required property (krsiler@microsoft.com)
+- Bump @fluentui-react-native/focus-zone to v0.12.10
 
 ## 1.29.0
 

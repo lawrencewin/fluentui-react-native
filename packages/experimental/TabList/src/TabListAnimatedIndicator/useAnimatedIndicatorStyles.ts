@@ -12,7 +12,7 @@ import { TabListContext } from '../TabList/TabListContext';
  * to move the indicator (on non-win32 platforms).
  */
 export function useAnimatedIndicatorStyles(): AnimatedIndicatorStyles {
-  const { animatedIndicatorStyles, layout, selectedKey, vertical } = React.useContext(TabListContext);
+  const { animatedIndicatorStyles, layout, selectedKey, setCanShowAnimatedIndicator, vertical } = React.useContext(TabListContext);
 
   const selectedIndicatorLayout = React.useMemo<TabLayoutInfo | null>(() => {
     return selectedKey ? layout.tabs[selectedKey] : null;
@@ -85,6 +85,12 @@ export function useAnimatedIndicatorStyles(): AnimatedIndicatorStyles {
       indicator: indicatorStyles,
     };
   }, [vertical, selectedIndicatorLayout, animatedIndicatorStyles]);
+
+  /**
+   * Until we have styles for the animated indicator, we show the Tab's "static indicator" for the selected key which is normally shown only on hover.
+   * The `canShowAnimatedIndicator` variable is used to decide whether to render the selected tab's static indicator as transparent or as colored in Tab.styling.tsx.
+   */
+  React.useEffect(() => setCanShowAnimatedIndicator(styles !== null), [setCanShowAnimatedIndicator, styles]);
 
   return styles;
 }

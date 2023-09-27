@@ -1,8 +1,37 @@
 # Change Log - @fluentui-react-native/input
 
-This log was last generated on Wed, 23 Aug 2023 18:55:24 GMT and should not be manually modified.
+This log was last generated on Mon, 25 Sep 2023 12:49:34 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.4.4
+
+Mon, 25 Sep 2023 12:49:34 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/icon to v0.19.11
+- Bump @fluentui-react-native/text to v0.21.10
+
+## 0.4.3
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.6
+- Bump @fluentui-react-native/icon to v0.19.10
+- Bump @fluentui-react-native/interactive-hooks to v0.24.8
+- Bump @fluentui-react-native/text to v0.21.9
+- Bump @fluentui-react-native/tokens to v0.21.3
+
+## 0.4.2
+
+Tue, 29 Aug 2023 21:59:04 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/icon to v0.19.9
 
 ## 0.4.1
 

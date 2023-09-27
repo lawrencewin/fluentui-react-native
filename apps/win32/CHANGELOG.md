@@ -1,8 +1,80 @@
 # Change Log - @fluentui-react-native/tester-win32
 
-This log was last generated on Wed, 23 Aug 2023 18:55:24 GMT and should not be manually modified.
+This log was last generated on Wed, 27 Sep 2023 00:35:39 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.36.5
+
+Wed, 27 Sep 2023 00:35:39 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.156.3
+
+## 0.36.4
+
+Mon, 25 Sep 2023 12:49:34 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.156.2
+
+## 0.36.3
+
+Wed, 20 Sep 2023 18:30:43 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.156.1
+
+## 0.36.2
+
+Tue, 19 Sep 2023 19:31:59 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.156.0
+
+## 0.36.1
+
+Wed, 13 Sep 2023 17:08:13 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.155.5
+
+## 0.36.0
+
+Wed, 06 Sep 2023 22:59:22 GMT
+
+### Minor changes
+
+- Moving wdio.win32 to apps/E2E (safreibe@microsoft.com)
+
+## 0.35.0
+
+Fri, 01 Sep 2023 02:16:14 GMT
+
+### Minor changes
+
+- Failing early in our E2E tests (safreibe@microsoft.com)
+
+## 0.34.42
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.155.4
+
+## 0.34.41
+
+Tue, 29 Aug 2023 21:59:04 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/tester to v0.155.3
 
 ## 0.34.40
 

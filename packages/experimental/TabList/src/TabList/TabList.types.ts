@@ -46,6 +46,11 @@ export interface TabListState {
   appearance: TabListAppearance;
 
   /**
+   * Flag indicating whether the animated indicator has correct layout styles such that we can render it.
+   */
+  canShowAnimatedIndicator: boolean;
+
+  /**
    * TabList's `disabled` prop
    */
   disabled: boolean;
@@ -75,6 +80,11 @@ export interface TabListState {
    * The currently selected Tab's key.
    */
   selectedKey: string;
+
+  /**
+   * Setter function for the `canShowAnimatedIndicator` variable for this state object.
+   */
+  setCanShowAnimatedIndicator: (canShowAnimatedIndicator: boolean) => void;
 
   /**
    * Setter for the context's `invoked` flag.

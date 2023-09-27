@@ -2,7 +2,8 @@ const path = require('path');
 const fs = require('fs');
 
 const appPath = path.resolve(path.dirname(require.resolve('@office-iss/rex-win32/rex-win32.js')), 'ReactTest.exe');
-const appArgs = 'basePath ' + path.resolve('dist') + ' plugin defaultplugin bundle index.win32 component FluentTester';
+const appArgs =
+  'basePath ' + path.join(__dirname, '..', 'win32', 'dist') + ' plugin defaultplugin bundle index.win32 component FluentTester';
 const appDir = path.dirname(require.resolve('@office-iss/rex-win32/rex-win32.js'));
 
 const defaultWaitForTimeout = 20000;
@@ -33,11 +34,11 @@ exports.config = {
    */
 
   logLevel: 'info', // Level of logging verbosity: trace | debug | info | warn | error | silent
-  bail: 0, // If you only want to run your tests until a specific amount of tests have failed use bail (default is 0 - don't bail, run all tests).
+  bail: 1, // If you only want to run your tests until a specific amount of tests have failed use bail (default is 0 - don't bail, run all tests).
   waitforTimeout: defaultWaitForTimeout, // Default timeout for all waitForXXX commands.
   connectionRetryTimeout: defaultConnectionRetryTimeout, // Timeout for any WebDriver request to a driver or grid.
-  connectionRetryCount: 3, // Maximum count of request retries to the Selenium server.
-  specFileRetries: 3, // The number of times to retry the entire spec file when it fails as a whole.
+  connectionRetryCount: 2, // Maximum count of request retries to the Selenium server.
+  specFileRetries: 2, // The number of times to retry the entire spec file when it fails as a whole.
 
   port: 4723, // default appium port
   services: [
@@ -146,7 +147,7 @@ exports.config = {
    */
   afterTest: async (test, context, results) => {
     const resultString = results.passed ? 'Passed' : 'Failed';
-    console.log('\n Test Case: ' + test.description + '.    Result: ' + resultString + '\n');
+    console.log(`\nTest Case: "${test.description}".\nResult: "${resultString}".\nDuration: "${(results.duration/600).toFixed(2)}s". \n`);
 
     // if test passed, ignore, else take and save screenshot. Unless it's the first test that boots the app,
     // it may be useful to have a screenshot of the app on load.
@@ -154,11 +155,8 @@ exports.config = {
       return;
     }
 
-    // get current test title and clean it, to use it as file name
-    const fileName = encodeURIComponent(test.description.replace(/\s+/g, '-'));
-
     // build file path
-    const filePath = './errorShots/' + fileName + '.png';
+    const filePath = './errorShots/ScreenshotOfFailure.png';
 
     /* If there are more than one instance of the app open, we know an assert popped up. Since the test already failed and a screenshot was captured
      * we want to close the assert popup. If we don't it will stay open and negatively interact with logic in our CI pipeline. */
