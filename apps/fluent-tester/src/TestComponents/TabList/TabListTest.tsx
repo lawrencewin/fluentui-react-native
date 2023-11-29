@@ -56,10 +56,10 @@ const TabListDefaultTest: React.FunctionComponent = () => {
       <Text variant="subheaderSemibold">Child relative positioned</Text>
       <Text>Left: 0</Text>
       <PositioningTest1 left={0} />
-      <Text>Start: 0</Text>
-      <PositioningTest1 start={0} />
       <Text>Left: 50</Text>
       <PositioningTest1 left={50} />
+      <Text>Start: 0</Text>
+      <PositioningTest1 start={0} />
       <Text>Start: 50</Text>
       <PositioningTest1 start={50} />
     </View>
