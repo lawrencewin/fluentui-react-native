@@ -44,16 +44,20 @@ const TabListDefaultTest: React.FunctionComponent = () => {
   return (
     <View style={stackStyle}>
       <Text variant="subheaderSemibold">Child absolute positioned</Text>
-      <Text>Default</Text>
-      <PositioningTest1 absolutePosition />
+      <Text>Left: 0</Text>
+      <PositioningTest1 absolutePosition left={0} />
       <Text>Left: 50</Text>
       <PositioningTest1 absolutePosition left={50} />
+      <Text>Start: 0</Text>
+      <PositioningTest1 absolutePosition start={0} />
       <Text>Start: 50</Text>
       <PositioningTest1 absolutePosition start={50} />
       <Divider />
       <Text variant="subheaderSemibold">Child relative positioned</Text>
-      <Text>Default</Text>
-      <PositioningTest1 />
+      <Text>Left: 0</Text>
+      <PositioningTest1 left={0} />
+      <Text>Start: 0</Text>
+      <PositioningTest1 start={0} />
       <Text>Left: 50</Text>
       <PositioningTest1 left={50} />
       <Text>Start: 50</Text>
