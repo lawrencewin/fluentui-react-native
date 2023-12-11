@@ -20,10 +20,10 @@ export interface MenuListTokens extends LayoutTokens, IBackgroundColorTokens {
   hasMaxHeight?: MenuListTokens;
 
   /**
-   * Corner radius of the menu list
-   * @platform android
+   * Border radius of the menu list
+   * @platform android macos
    */
-  cornerRadius?: number;
+  borderRadius?: number;
 }
 
 export interface MenuListProps extends Omit<IViewProps, 'onPress'> {
@@ -79,14 +79,14 @@ export interface MenuListState extends Omit<MenuListProps, 'checked' | 'onChecke
   removeRadioItem: (name: string) => void;
   trackMenuItem: (item: TrackedMenuItem) => void;
   untrackMenuItem: (item: TrackedMenuItem) => void;
-  onListKeyDown: (e: InteractionEvent) => void;
-  hasMaxHeight?: boolean;
-  hasMaxWidth?: boolean;
+  hasMaxHeight: boolean;
+  hasMaxWidth: boolean;
+  focusZoneRef?: React.RefObject<View>;
 }
 
 export interface MenuListSlotProps {
   root: React.PropsWithRef<IViewProps> & { gap?: number };
-  focusZone?: FocusZoneProps; // macOS only
+  focusZone?: FocusZoneProps; // macOS and win32 only
   scrollView?: ScrollViewProps;
 }
 

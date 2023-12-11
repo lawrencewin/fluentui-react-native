@@ -4,15 +4,16 @@ import CheckboxLegacyPageObject from '../pages/CheckboxLegacyPageObject';
 
 describe('Checkbox Legacy Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await CheckboxLegacyPageObject.waitForInitialPageToDisplay();
-    expect(await CheckboxLegacyPageObject.isInitialPageDisplayed()).toBeTruthy(CheckboxLegacyPageObject.ERRORMESSAGE_APPLOAD);
+    expect(await CheckboxLegacyPageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to Checkbox Legacy test page', async () => {
-    await CheckboxLegacyPageObject.navigateToPageAndLoadTests(true);
-    expect(await CheckboxLegacyPageObject.isPageLoaded()).toBeTruthy(CheckboxLegacyPageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await CheckboxLegacyPageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    /* Expand E2E section */
+    expect(await CheckboxLegacyPageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await CheckboxLegacyPageObject.didAssertPopup()).withContext(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped u.toBeFalsy()p
   });
 });
 
@@ -30,8 +31,6 @@ describe('Checkbox Legacy Accessibility Testing', () => {
         CHECKBOX_A11Y_ROLE,
       ),
     ).toBeTruthy();
-
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Set "accessibilityLabel" prop. Validate "accessibilityLabel" value propagates to "Name" element attribute.', async () => {
@@ -42,8 +41,6 @@ describe('Checkbox Legacy Accessibility Testing', () => {
         CHECKBOX_ACCESSIBILITY_LABEL,
       ),
     ).toBeTruthy();
-
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Do NOT set "accessibilityLabel" prop. Validate "Name" element attribute defaults to the checkbox label.', async () => {
@@ -54,8 +51,6 @@ describe('Checkbox Legacy Accessibility Testing', () => {
         CHECKBOX_TEST_COMPONENT_LABEL,
       ),
     ).toBeTruthy();
-
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 });
 
@@ -69,7 +64,9 @@ describe('Checkbox Legacy Functional Testing', () => {
 
   it("Click the primary checkbox. Validate that the Checkbox toggles correctly AND calls the user's onChange() callback.", async () => {
     /* Validate the Checkbox is initially toggled OFF */
-    await expect(await CheckboxLegacyPageObject.isCheckboxChecked()).toBeFalsy('The primary checkbox should initially be toggled off.');
+    await expect(await CheckboxLegacyPageObject.isCheckboxChecked())
+      .withContext('The primary checkbox should initially be toggled off.')
+      .toBeFalsy();
 
     /* Click on the Checkbox to toggle on */
     await CheckboxLegacyPageObject.click(CheckboxLegacyPageObject._primaryComponent);
@@ -90,12 +87,16 @@ describe('Checkbox Legacy Functional Testing', () => {
       await CheckboxLegacyPageObject.waitForCheckboxToggle(false, 'The primary checkbox should have been toggled off via click.'),
     ).toBeTruthy();
 
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await CheckboxLegacyPageObject.didAssertPopup())
+      .withContext(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it("Press 'Space' on the primary checkbox. Validate that the Checkbox toggles correctly AND calls the user's onChange() callback.", async () => {
     /* Validate the Checkbox is initially toggled OFF */
-    await expect(await CheckboxLegacyPageObject.isCheckboxChecked()).toBeFalsy('The primary checkbox should initially be toggled off.');
+    await expect(await CheckboxLegacyPageObject.isCheckboxChecked())
+      .withContext('The primary checkbox should initially be toggled off.')
+      .toBeFalsy();
 
     /* Presses the "space bar" to select the Checkbox */
     await CheckboxLegacyPageObject.sendKeys(CheckboxLegacyPageObject._primaryComponent, [Keys.SPACE]);
@@ -115,6 +116,8 @@ describe('Checkbox Legacy Functional Testing', () => {
       await CheckboxLegacyPageObject.waitForCheckboxToggle(false, "The primary checkbox should have been toggled off via 'Space' press."),
     ).toBeTruthy();
 
-    await expect(await CheckboxLegacyPageObject.didAssertPopup()).toBeFalsy(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await CheckboxLegacyPageObject.didAssertPopup())
+      .withContext(CheckboxLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });

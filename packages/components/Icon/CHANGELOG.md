@@ -1,8 +1,161 @@
 # Change Log - @fluentui-react-native/icon
 
-This log was last generated on Mon, 12 Jun 2023 17:46:43 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Dec 2023 22:21:57 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.20.1
+
+Wed, 06 Dec 2023 22:21:57 GMT
+
+### Patches
+
+- small change to use output of function (56889386+gremlin529@users.noreply.github.com)
+
+## 0.20.0
+
+Thu, 09 Nov 2023 02:39:09 GMT
+
+### Minor changes
+
+- Update to react-native 0.72 (30809111+acoates-ms@users.noreply.github.com)
+- Bump @fluentui-react-native/adapters to v0.12.0
+- Bump @fluentui-react-native/framework to v0.12.0
+- Bump @fluentui-react-native/text to v0.22.0
+
+## 0.19.16
+
+Tue, 07 Nov 2023 20:20:34 GMT
+
+### Patches
+
+- Manually bump packages stuck in the pipeline (safreibe@microsoft.com)
+- Bump @fluentui-react-native/framework to v0.11.10
+- Bump @fluentui-react-native/text to v0.21.14
+
+## 0.19.14
+
+Mon, 30 Oct 2023 21:26:06 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.8
+- Bump @fluentui-react-native/text to v0.21.12
+
+## 0.19.13
+
+Wed, 25 Oct 2023 20:50:34 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.7
+- Bump @fluentui-react-native/text to v0.21.11
+
+## 0.19.12
+
+Wed, 25 Oct 2023 17:21:07 GMT
+
+### Patches
+
+- Fix viewBox prop being explicitly set as undefined on legacy icon (winlarry@microsoft.com)
+
+## 0.19.11
+
+Mon, 25 Sep 2023 12:49:34 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/text to v0.21.10
+
+## 0.19.10
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.3
+- Bump @fluentui-react-native/framework to v0.11.6
+- Bump @fluentui-react-native/text to v0.21.9
+
+## 0.19.9
+
+Tue, 29 Aug 2023 21:59:04 GMT
+
+### Patches
+
+- Fix fontSource props not being correctly applied (winlarry@microsoft.com)
+
+## 0.19.8
+
+Wed, 23 Aug 2023 18:55:23 GMT
+
+### Patches
+
+- Update SVG dependencies (ruaraki@microsoft.com)
+- Bump @fluentui-react-native/text to v0.21.8
+
+## 0.19.7
+
+Mon, 14 Aug 2023 20:14:41 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.2
+- Bump @fluentui-react-native/framework to v0.11.5
+- Bump @fluentui-react-native/text to v0.21.7
+
+## 0.19.6
+
+Wed, 09 Aug 2023 22:02:15 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.4
+- Bump @fluentui-react-native/text to v0.21.6
+
+## 0.19.5
+
+Mon, 31 Jul 2023 19:29:59 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.3
+- Bump @fluentui-react-native/text to v0.21.5
+
+## 0.19.4
+
+Tue, 18 Jul 2023 19:09:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/framework to v0.11.2
+- Bump @fluentui-react-native/text to v0.21.4
+
+## 0.19.3
+
+Fri, 07 Jul 2023 20:45:12 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.1
+- Bump @fluentui-react-native/framework to v0.11.1
+- Bump @fluentui-react-native/text to v0.21.3
+
+## 0.19.2
+
+Mon, 19 Jun 2023 18:37:35 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/text to v0.21.2
+
+## 0.19.1
+
+Sat, 17 Jun 2023 00:00:18 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/text to v0.21.1
 
 ## 0.19.0
 

@@ -5,15 +5,18 @@ import ButtonV1PageObject from '../pages/ButtonV1PageObject';
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Button Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await ButtonV1PageObject.waitForInitialPageToDisplay();
-    expect(await ButtonV1PageObject.isInitialPageDisplayed()).toBeTruthy(ButtonV1PageObject.ERRORMESSAGE_APPLOAD);
+    expect(await ButtonV1PageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to Button test page', async () => {
-    await ButtonV1PageObject.navigateToPageAndLoadTests(true);
-    expect(await ButtonV1PageObject.isPageLoaded()).toBeTruthy(ButtonV1PageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await ButtonV1PageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await ButtonV1PageObject.didAssertPopup()).toBeFalsy(ButtonV1PageObject.ERRORMESSAGE_ASSERT);
+    /* Expand E2E section */
+    expect(await ButtonV1PageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await ButtonV1PageObject.didAssertPopup())
+      .withContext(ButtonV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });
 
@@ -31,7 +34,9 @@ describe('ButtonV1 Accessibility Testing', () => {
       ),
     ).toBeTruthy();
 
-    await expect(await ButtonV1PageObject.didAssertPopup()).toBeFalsy(ButtonV1PageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonV1PageObject.didAssertPopup())
+      .withContext(ButtonV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Validate Button Class on Android', async () => {
@@ -39,7 +44,9 @@ describe('ButtonV1 Accessibility Testing', () => {
       await ButtonV1PageObject.compareAttribute(ButtonV1PageObject._primaryComponent, AndroidAttribute.Class, ANDROID_BUTTON),
     ).toBeTruthy();
 
-    await expect(await ButtonV1PageObject.didAssertPopup()).toBeFalsy(ButtonV1PageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonV1PageObject.didAssertPopup())
+      .withContext(ButtonV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });
 
@@ -54,7 +61,9 @@ describe('ButtonV1 Functional Testing', () => {
     await expect(
       await ButtonV1PageObject.waitForOnClickCallbackToFire(`The primary button failed to fire an onClick callback with a mouse click.`),
     ).toBeTruthy();
-    await expect(await ButtonV1PageObject.didAssertPopup()).toBeFalsy(ButtonV1PageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonV1PageObject.didAssertPopup())
+      .withContext(ButtonV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
 
     await ButtonV1PageObject.click(ButtonV1PageObject._primaryComponent); // Reset Button State
   });

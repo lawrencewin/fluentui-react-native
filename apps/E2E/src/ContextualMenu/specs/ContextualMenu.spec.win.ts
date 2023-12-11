@@ -4,15 +4,18 @@ import ContextualMenuPageObject from '../pages/ContextualMenuPageObject.win';
 // Before testing begins, allow up to 60 seconds for app to open
 describe('ContextualMenu Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await ContextualMenuPageObject.waitForInitialPageToDisplay();
-    expect(await ContextualMenuPageObject.isInitialPageDisplayed()).toBeTruthy(ContextualMenuPageObject.ERRORMESSAGE_APPLOAD);
+    expect(await ContextualMenuPageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to ContextualMenu test page', async () => {
-    await ContextualMenuPageObject.navigateToPageAndLoadTests(true);
-    expect(await ContextualMenuPageObject.isPageLoaded()).toBeTruthy(ContextualMenuPageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await ContextualMenuPageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await ContextualMenuPageObject.didAssertPopup()).toBeFalsy(ContextualMenuPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    /* Expand E2E section */
+    expect(await ContextualMenuPageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await ContextualMenuPageObject.didAssertPopup())
+      .withContext(ContextualMenuPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy(); // Ensure no asserts popped up
   });
 });
 
@@ -30,7 +33,9 @@ describe('ContextualMenu Functional Tests', () => {
 
     await expect(await ContextualMenuPageObject.waitForContextualMenuItemsToDisplay(PAGE_TIMEOUT)).toBeTruthy();
 
-    await expect(await ContextualMenuPageObject.didAssertPopup()).toBeFalsy(ContextualMenuPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    await expect(await ContextualMenuPageObject.didAssertPopup())
+      .withContext(ContextualMenuPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy(); // Ensure no asserts popped up
   });
 
   it("Type 'SPACE' on ContextualMenu Button. Validate that the menu opens by checking if its items are displayed.", async () => {
@@ -39,7 +44,9 @@ describe('ContextualMenu Functional Tests', () => {
 
     await expect(await ContextualMenuPageObject.waitForContextualMenuItemsToDisplay(PAGE_TIMEOUT)).toBeTruthy();
 
-    await expect(await ContextualMenuPageObject.didAssertPopup()).toBeFalsy(ContextualMenuPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    await expect(await ContextualMenuPageObject.didAssertPopup())
+      .withContext(ContextualMenuPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy(); // Ensure no asserts popped up
   });
 
   it("Type 'ENTER' on ContextualMenu Button. Validate that the menu opens by checking if its items are displayed.", async () => {
@@ -48,7 +55,9 @@ describe('ContextualMenu Functional Tests', () => {
 
     await expect(await ContextualMenuPageObject.waitForContextualMenuItemsToDisplay(PAGE_TIMEOUT)).toBeTruthy();
 
-    await expect(await ContextualMenuPageObject.didAssertPopup()).toBeFalsy(ContextualMenuPageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    await expect(await ContextualMenuPageObject.didAssertPopup())
+      .withContext(ContextualMenuPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy(); // Ensure no asserts popped up
   });
 
   /* Runs after all tests. This ensures the ContextualMenu closes. If it stays open, the test driver won't be able to close the test app */

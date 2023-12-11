@@ -1,8 +1,245 @@
 # Change Log - @fluentui-react-native/e2e-testing
 
-This log was last generated on Mon, 12 Jun 2023 17:46:42 GMT and should not be manually modified.
+This log was last generated on Sat, 09 Dec 2023 00:26:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.34.1
+
+Sat, 09 Dec 2023 00:26:48 GMT
+
+### Patches
+
+- Replace deprecated usage of falsy/truthy methods in E2E tests (winlarry@microsoft.com)
+
+## 1.34.0
+
+Thu, 30 Nov 2023 21:40:35 GMT
+
+### Minor changes
+
+- adding package (gulnazsayed@microsoft.com)
+
+## 1.33.1
+
+Thu, 23 Nov 2023 00:12:31 GMT
+
+### Patches
+
+- Update appium packages (ruaraki@microsoft.com)
+
+## 1.33.0
+
+Thu, 09 Nov 2023 02:39:08 GMT
+
+### Minor changes
+
+- Update to react-native 0.72 (30809111+acoates-ms@users.noreply.github.com)
+- Bump @fluentui-react-native/focus-zone to v0.16.0
+
+## 1.32.8
+
+Tue, 07 Nov 2023 20:20:33 GMT
+
+### Patches
+
+- Manually bump packages stuck in the pipeline (safreibe@microsoft.com)
+- Bump @fluentui-react-native/focus-zone to v0.15.0
+
+## 1.32.6
+
+Tue, 31 Oct 2023 19:11:10 GMT
+
+### Patches
+
+- Add test and a tiny bit of cleanup (ruaraki@microsoft.com)
+- Bump @fluentui-react-native/focus-zone to v0.13.3
+
+## 1.32.5
+
+Mon, 30 Oct 2023 21:26:06 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.13.2
+
+## 1.32.4
+
+Wed, 25 Oct 2023 20:50:34 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.13.1
+
+## 1.32.3
+
+Mon, 23 Oct 2023 23:10:25 GMT
+
+### Patches
+
+- [CI] Refactor Apple CI (sanajmi@microsoft.com)
+
+## 1.32.2
+
+Tue, 17 Oct 2023 19:21:23 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.13.0
+
+## 1.32.1
+
+Wed, 11 Oct 2023 21:01:53 GMT
+
+### Patches
+
+- Deduping some dependencies (ruaraki@microsoft.com)
+
+## 1.32.0
+
+Mon, 18 Sep 2023 18:35:05 GMT
+
+### Minor changes
+
+- Improve E2E Testing logic (safreibe@microsoft.com)
+
+## 1.31.1
+
+Wed, 06 Sep 2023 22:59:22 GMT
+
+### Patches
+
+- Removing E2E testing assets from apps/win32. Will host in apps/e2e (safreibe@microsoft.com)
+
+## 1.31.0
+
+Fri, 01 Sep 2023 02:16:14 GMT
+
+### Minor changes
+
+- Change name of error screenshot. Now that there's only one failure, no need to get test name. Already in failure. Makes error Screenshot more accesible (safreibe@microsoft.com)
+
+## 1.30.0
+
+Thu, 31 Aug 2023 17:15:50 GMT
+
+### Minor changes
+
+- Improving FZ E2E reliability (safreibe@microsoft.com)
+
+## 1.29.1
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Add e2e tests for required property (krsiler@microsoft.com)
+- Bump @fluentui-react-native/focus-zone to v0.12.10
+
+## 1.29.0
+
+Thu, 17 Aug 2023 01:06:01 GMT
+
+### Minor changes
+
+- [macOS] Add VibrancyView (saadnajmi2@gmail.com)
+
+## 1.28.9
+
+Tue, 15 Aug 2023 21:40:26 GMT
+
+### Patches
+
+- Implement TabList a11y and functional e2e testing for windows (winlarry@microsoft.com)
+
+## 1.28.8
+
+Mon, 14 Aug 2023 20:14:41 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.9
+
+## 1.28.7
+
+Wed, 09 Aug 2023 22:02:13 GMT
+
+### Patches
+
+- Fix for win32? (ruaraki@microsoft.com)
+- Bump @fluentui-react-native/focus-zone to v0.12.8
+
+## 1.28.6
+
+Mon, 31 Jul 2023 19:29:59 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.7
+
+## 1.28.5
+
+Tue, 18 Jul 2023 19:09:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.6
+
+## 1.28.4
+
+Tue, 11 Jul 2023 04:56:58 GMT
+
+### Patches
+
+- Update waiters to not fail (ayushsinghs@yahoo.in)
+
+## 1.28.3
+
+Mon, 10 Jul 2023 17:25:04 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.5
+
+## 1.28.2
+
+Fri, 07 Jul 2023 22:02:00 GMT
+
+### Patches
+
+- Disable failing Chip test to unblock CI (ruaraki@microsoft.com)
+
+## 1.28.1
+
+Fri, 07 Jul 2023 20:45:12 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.4
+
+## 1.28.0
+
+Fri, 07 Jul 2023 19:45:35 GMT
+
+### Minor changes
+
+- Cleanup chip/input & uninstall task (ayushsinghs@yahoo.in)
+
+## 1.27.2
+
+Mon, 19 Jun 2023 18:37:35 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.3
+
+## 1.27.1
+
+Sat, 17 Jun 2023 00:00:18 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/focus-zone to v0.12.2
 
 ## 1.27.0
 

@@ -1,3 +1,5 @@
+import type { AnimatableNumericValue } from 'react-native';
+
 import type { IViewProps } from '@fluentui-react-native/adapters';
 import type { ICalloutProps, ICalloutTokens } from '@fluentui-react-native/callout';
 
@@ -9,9 +11,9 @@ export type MenuPopoverTokens =
   | Omit<ICalloutTokens, 'anchorRect' | 'beakWidth' | 'dismissBehaviors'> & {
       /**
        * The props for the corner radius for the Modal MenuPopover
-       * @platform android
+       * @platform android macos
        */
-      cornerRadius?: number;
+      borderRadius?: AnimatableNumericValue;
 
       /**
        * Shadown elevation for the Modal MenuPopover

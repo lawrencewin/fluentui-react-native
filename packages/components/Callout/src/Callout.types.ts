@@ -1,5 +1,4 @@
 import type * as React from 'react';
-// SAAD - Looks like ScreenRect got renamed.
 import type { KeyboardMetrics, ViewStyle } from 'react-native';
 
 import type { IViewProps } from '@fluentui-react-native/adapters';
@@ -40,7 +39,6 @@ export interface RestoreFocusEvent {
 }
 
 interface OmittedBorderTokens {
-  borderRadius?: number | string;
   borderStyle?: ViewStyle['borderStyle'];
 }
 
@@ -87,17 +85,17 @@ export interface ICalloutTokens extends IBackgroundColorTokens, CalloutBorderTok
   /**
    * Defines a maximum height for the Callout.
    */
-  maxHeight?: number | string;
+  maxHeight?: number | `${number}%`;
 
   /**
    * Defines a maximum width for the Callout.
    */
-  maxWidth?: number | string;
+  maxWidth?: number | `${number}%`;
 
   /**
    * Defines a minimum width for the Callout.
    */
-  minWidth?: number | string;
+  minWidth?: number | `${number}%`;
 
   /**
    * Defines the minimum padding between the Callout and the display edges.

@@ -5,16 +5,19 @@ import ButtonLegacyPageObject from '../pages/ButtonLegacyPageObject';
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Button Legacy Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await ButtonLegacyPageObject.waitForInitialPageToDisplay();
-    expect(await ButtonLegacyPageObject.isInitialPageDisplayed()).toBeTruthy(ButtonLegacyPageObject.ERRORMESSAGE_APPLOAD);
+    expect(await ButtonLegacyPageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to Button Legacy test page', async () => {
     /* Click on component button to navigate to test page */
-    await ButtonLegacyPageObject.navigateToPageAndLoadTests(true);
-    expect(await ButtonLegacyPageObject.isPageLoaded()).toBeTruthy(ButtonLegacyPageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await ButtonLegacyPageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
+    /* Expand E2E section */
+    expect(await ButtonLegacyPageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await ButtonLegacyPageObject.didAssertPopup())
+      .withContext(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });
 
@@ -32,8 +35,6 @@ describe('Button Legacy Accessibility Testing', () => {
         BUTTON_A11Y_ROLE,
       ),
     ).toBeTruthy();
-
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Set "accessibilityLabel" prop. Validate "accessibilityLabel" value propagates to "Name" element attribute.', async () => {
@@ -44,8 +45,6 @@ describe('Button Legacy Accessibility Testing', () => {
         BUTTON_ACCESSIBILITY_LABEL_DEPRECATED,
       ),
     ).toBeTruthy();
-
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Do NOT set "accessibilityLabel" prop. Validate "Name" element attribute defaults to the button label.', async () => {
@@ -56,8 +55,6 @@ describe('Button Legacy Accessibility Testing', () => {
         BUTTON_TEST_COMPONENT_LABEL_DEPRECATED,
       ),
     ).toBeTruthy();
-
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
   });
 });
 
@@ -77,7 +74,9 @@ describe('Button Legacy Functional Testing', () => {
       await ButtonLegacyPageObject.didOnClickCallbackFire('Clicking on the primary button failed to fire the onClick() callback.'),
     ).toBeTruthy();
 
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonLegacyPageObject.didAssertPopup())
+      .withContext(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Type "Enter" on primary button. Validate onClick() callback was fired.', async () => {
@@ -87,7 +86,9 @@ describe('Button Legacy Functional Testing', () => {
         "Pressing the 'Enter' key on the primary button failed to fire the onClick() callback.",
       ),
     ).toBeTruthy();
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonLegacyPageObject.didAssertPopup())
+      .withContext(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Type "Space" on primary button. Validate onClick() callback was fired.', async () => {
@@ -98,6 +99,8 @@ describe('Button Legacy Functional Testing', () => {
       ),
     ).toBeTruthy();
 
-    await expect(await ButtonLegacyPageObject.didAssertPopup()).toBeFalsy(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await ButtonLegacyPageObject.didAssertPopup())
+      .withContext(ButtonLegacyPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });

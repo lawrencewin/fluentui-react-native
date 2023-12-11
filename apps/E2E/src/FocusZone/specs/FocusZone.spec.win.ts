@@ -4,16 +4,19 @@ import FocusZonePageObject from '../pages/FocusZonePageObject';
 // Before testing begins, allow up to 60 seconds for app to open
 describe('FocusZone Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await FocusZonePageObject.waitForInitialPageToDisplay();
-    expect(await FocusZonePageObject.isInitialPageDisplayed()).toBeTruthy(FocusZonePageObject.ERRORMESSAGE_APPLOAD);
+    expect(await FocusZonePageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
-  it('Click and navigate to FocusTrapZone test page', async () => {
+  it('Click and navigate to FocusZone test page', async () => {
     /* Click on component button to navigate to test page */
-    await FocusZonePageObject.navigateToPageAndLoadTests(true);
-    expect(await FocusZonePageObject.isPageLoaded()).toBeTruthy(FocusZonePageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await FocusZonePageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    /* Expand E2E section */
+    expect(await FocusZonePageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy(); // Ensure no asserts popped up
   });
 });
 
@@ -43,7 +46,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(3), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigate horizontal focuszone using arrow keys. Validate focus switches correctly.', async () => {
@@ -66,7 +71,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(3), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigates vertical focuszone using arrow keys. Validate focus switches correctly.', async () => {
@@ -90,7 +97,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(3), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigates none-direction focuszone using arrow keys. Validate focus does not switch.', async () => {
@@ -117,7 +126,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(2), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigates bi-directional focuszone with 2d navigation. Validate focus switches correctly.', async () => {
@@ -133,7 +144,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(5), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it("Navigates focuszone with circular navigation off. Validate focus between start and end doesn't switch.", async () => {
@@ -147,7 +160,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(9), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigates focuszone with circular navigation on. Validate focus between start and end switches.', async () => {
@@ -163,7 +178,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(1), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Navigates disabled focuszone by arrow keys. Validate focus switches correctly.', async () => {
@@ -190,7 +207,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(2), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Tabs in and out of the FocusZone. Validate focus switches correctly.', async () => {
@@ -214,7 +233,9 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject._beforeButton, Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Tabs in and out of the FocusZone with a defaultTabbableElement set. Validate focus switches to the defaultTabbableElement.', async () => {
@@ -252,6 +273,8 @@ describe('FocusZone Functional Testing', () => {
       await FocusZonePageObject.compareAttribute(FocusZonePageObject.gridButton(4), Attribute.IsFocused, AttributeValue.true),
     ).toBeTruthy();
 
-    expect(await FocusZonePageObject.didAssertPopup()).toBeFalsy(FocusZonePageObject.ERRORMESSAGE_ASSERT);
+    expect(await FocusZonePageObject.didAssertPopup())
+      .withContext(FocusZonePageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });

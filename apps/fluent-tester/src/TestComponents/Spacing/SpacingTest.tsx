@@ -10,7 +10,7 @@ import type { TestSection, PlatformStatus } from '../Test';
 import { Test } from '../Test';
 
 const BasicUsage: React.FunctionComponent = () => {
-  function spacingExample(tokenName: string, spacing?: number | string) {
+  function spacingExample(tokenName: string, spacing?: number) {
     return (
       <View>
         <Text>
@@ -43,10 +43,6 @@ const BasicUsage: React.FunctionComponent = () => {
         {spacingExample('size400', globalTokens.size400)}
         {spacingExample('size480', globalTokens.size480)}
         {spacingExample('size560', globalTokens.size560)}
-        {spacingExample('size640', globalTokens.size640)}
-        {spacingExample('size720', globalTokens.size720)}
-        {spacingExample('size800', globalTokens.size800)}
-        {spacingExample('size1200', globalTokens.size1200)}
       </Stack>
     </View>
   );

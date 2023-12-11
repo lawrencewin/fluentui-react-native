@@ -5,15 +5,18 @@ import InputPageObject from '../pages/InputPageObject';
 // Before testing begins, allow up to 60 seconds for app to open
 describe('Input Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await InputPageObject.waitForInitialPageToDisplay();
-    expect(await InputPageObject.isInitialPageDisplayed()).toBeTruthy(InputPageObject.ERRORMESSAGE_APPLOAD);
+    expect(await InputPageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to Input test page', async () => {
-    await InputPageObject.navigateToPageAndLoadTests(true);
-    expect(await InputPageObject.isPageLoaded()).toBeTruthy(InputPageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await InputPageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    /* Expand E2E section */
+    expect(await InputPageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });
 
@@ -26,24 +29,18 @@ describe('Input Accessibility Testing', () => {
     await expect(
       await InputPageObject.compareAttribute(InputPageObject._primaryComponent, AndroidAttribute.AccessibilityLabel, INPUT_TEST_COMPONENT),
     ).toBeTruthy();
-
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Validate Edit text Class on Android', async () => {
     await expect(
       await InputPageObject.compareAttribute(InputPageObject._primaryComponent, AndroidAttribute.Class, ANDROID_EDITTEXT),
     ).toBeTruthy();
-
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Validate Accessory button Class on Android', async () => {
     await expect(
       await InputPageObject.compareAttribute(InputPageObject._accessoryButton, AndroidAttribute.Class, ANDROID_BUTTON),
     ).toBeTruthy();
-
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
   });
 });
 
@@ -56,27 +53,37 @@ describe('Input Functional Testing', () => {
   it('Validate OnChange() callback was fired', async () => {
     await InputPageObject.click(InputPageObject._primaryComponent);
     await InputPageObject.typeText(INPUT_TYPE_STRING);
-    await expect(await InputPageObject.waitForStringUpdate(INPUT_START_STRING + INPUT_TYPE_STRING, 'Text typing failing.')).toBeTruthy();
+    await expect(await InputPageObject.waitForStringUpdate(INPUT_START_STRING + INPUT_TYPE_STRING, 'Text typing failing.'));
     await expect(await InputPageObject.verifyTextContent(INPUT_START_STRING + INPUT_TYPE_STRING)).toBeTruthy();
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Validate error state was achieved', async () => {
     await InputPageObject.click(InputPageObject._primaryComponent);
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
 
     await InputPageObject.typeText(INPUT_TYPE_STRING);
-    await expect(await InputPageObject.waitForStringUpdate(INPUT_ERROR_STRING, 'Error state not achieved.')).toBeTruthy();
+    await expect(await InputPageObject.waitForStringUpdate(INPUT_ERROR_STRING, 'Error state not achieved.'));
     await expect(await InputPageObject.verifyTextContent(INPUT_ERROR_STRING)).toBeTruthy();
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it('Validate accessory icon OnPress() callback was fired -> Click', async () => {
     await InputPageObject.click(InputPageObject._accessoryButton);
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
 
-    await expect(await InputPageObject.waitForStringUpdate(INPUT_ONCLICK_STRING, 'OnPress callback failing.')).toBeTruthy();
+    await expect(await InputPageObject.waitForStringUpdate(INPUT_ONCLICK_STRING, 'OnPress callback failing.'));
     await expect(await InputPageObject.verifyTextContent(INPUT_ONCLICK_STRING)).toBeTruthy();
-    await expect(await InputPageObject.didAssertPopup()).toBeFalsy(InputPageObject.ERRORMESSAGE_ASSERT);
+    await expect(await InputPageObject.didAssertPopup())
+      .withContext(InputPageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });

@@ -3,8 +3,7 @@ import NativeTestingPageObject from '../pages/NativeTestingPageObject.win';
 
 describe('Native Safety Check Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await NativeTestingPageObject.waitForInitialPageToDisplay();
-    expect(await NativeTestingPageObject.isInitialPageDisplayed()).toBeTruthy(NativeTestingPageObject.ERRORMESSAGE_APPLOAD);
+    expect(await NativeTestingPageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   // The ScrollView in testing is the one that contains all the buttons that navigate to each component's
@@ -15,9 +14,9 @@ describe('Native Safety Check Testing Initialization', () => {
   //    2) Keeps testID='SCROLLVIEW_TEST_ID'
   it('Validate the ScrollView containing all the navigational buttons exists', async () => {
     await NativeTestingPageObject.waitForScrollViewDisplayed(PAGE_TIMEOUT);
-    await expect(await NativeTestingPageObject.doesScrollViewParentExist()).toBeTruthy(
-      'The testing ScrollView containing navigation buttons to individual testPages was not displayed in time.',
-    );
+    await expect(await NativeTestingPageObject.doesScrollViewParentExist())
+      .withContext('The testing ScrollView containing navigation buttons to individual testPages was not displayed in time.')
+      .toBeTruthy();
   });
 
   // In addition to existing, we want to ensure the Children of the ScrollView stay intact. The children are the buttons that

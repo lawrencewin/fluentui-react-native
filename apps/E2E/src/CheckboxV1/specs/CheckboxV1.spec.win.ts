@@ -1,18 +1,19 @@
-import { CHECKBOX_A11Y_ROLE, Keys, Attribute } from '../../common/consts';
+import { CHECKBOX_A11Y_ROLE, Keys, Attribute, AttributeValue } from '../../common/consts';
 import { CHECKBOXV1_TEST_COMPONENT_LABEL, CHECKBOXV1_ACCESSIBILITY_LABEL } from '../consts';
 import CheckboxV1PageObject from '../pages/CheckboxV1PageObject';
 
 describe('CheckboxV1 Testing Initialization', () => {
   it('Wait for app load', async () => {
-    await CheckboxV1PageObject.waitForInitialPageToDisplay();
-    expect(await CheckboxV1PageObject.isInitialPageDisplayed()).toBeTruthy(CheckboxV1PageObject.ERRORMESSAGE_APPLOAD);
+    expect(await CheckboxV1PageObject.waitForInitialPageToDisplay()).toBeTrue();
   });
 
   it('Click and navigate to CheckboxV1 test page', async () => {
-    await CheckboxV1PageObject.navigateToPageAndLoadTests(true);
-    expect(await CheckboxV1PageObject.isPageLoaded()).toBeTruthy(CheckboxV1PageObject.ERRORMESSAGE_PAGELOAD);
+    expect(await CheckboxV1PageObject.navigateToPageAndLoadTests()).toBeTrue();
 
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped up
+    /* Expand E2E section */
+    expect(await CheckboxV1PageObject.enableE2ETesterMode()).toBeTrue();
+
+    await expect(await CheckboxV1PageObject.didAssertPopup()).withContext(CheckboxV1PageObject.ERRORMESSAGE_ASSERT); // Ensure no asserts popped u.toBeFalsy()p
   });
 });
 
@@ -26,8 +27,6 @@ describe('CheckboxV1 Accessibility Testing', () => {
     await expect(
       await CheckboxV1PageObject.compareAttribute(CheckboxV1PageObject._primaryComponent, Attribute.AccessibilityRole, CHECKBOX_A11Y_ROLE),
     ).toBeTruthy();
-
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Set "accessibilityLabel" prop. Validate "accessibilityLabel" value propagates to "Name" element attribute.', async () => {
@@ -38,8 +37,6 @@ describe('CheckboxV1 Accessibility Testing', () => {
         CHECKBOXV1_ACCESSIBILITY_LABEL,
       ),
     ).toBeTruthy();
-
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT);
   });
 
   it('Do NOT set "accessibilityLabel" prop. Validate "Name" element attribute defaults to the checkbox label.', async () => {
@@ -50,8 +47,26 @@ describe('CheckboxV1 Accessibility Testing', () => {
         CHECKBOXV1_TEST_COMPONENT_LABEL,
       ),
     ).toBeTruthy();
+  });
 
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT);
+  it('Set "required" prop. Validate "IsRequiredForForm" element attribute is true.', async () => {
+    await expect(
+      await CheckboxV1PageObject.compareAttribute(
+        CheckboxV1PageObject._secondaryComponent,
+        Attribute.IsRequiredForForm,
+        AttributeValue.true,
+      ),
+    ).toBeTruthy();
+  });
+
+  it('Do NOT set "required" prop. Validate "IsRequiredForForm" element attribute is false.', async () => {
+    await expect(
+      await CheckboxV1PageObject.compareAttribute(
+        CheckboxV1PageObject._primaryComponent,
+        Attribute.IsRequiredForForm,
+        AttributeValue.false,
+      ),
+    ).toBeTruthy();
   });
 });
 
@@ -65,7 +80,9 @@ describe('CheckboxV1 Functional Testing', () => {
 
   it("Click the primary checkbox. Validate that the Checkbox toggles correctly AND calls the user's onChange() callback.", async () => {
     /* Validate the Checkbox is initially toggled OFF */
-    await expect(await CheckboxV1PageObject.isCheckboxChecked()).toBeFalsy('The primary checkbox should initially be toggled off.');
+    await expect(await CheckboxV1PageObject.isCheckboxChecked())
+      .withContext('The primary checkbox should initially be toggled off.')
+      .toBeFalsy();
 
     /* Click on the Checkbox to toggle on */
     await CheckboxV1PageObject.click(CheckboxV1PageObject._primaryComponent);
@@ -86,12 +103,16 @@ describe('CheckboxV1 Functional Testing', () => {
       await CheckboxV1PageObject.waitForCheckboxToggle(false, 'The primary checkbox should have been toggled off via click.'),
     ).toBeTruthy();
 
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT);
+    await expect(await CheckboxV1PageObject.didAssertPopup())
+      .withContext(CheckboxV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 
   it("Press 'Space' on the primary checkbox. Validate that the Checkbox toggles correctly AND calls the user's onChange() callback.", async () => {
     /* Validate the Checkbox is initially toggled OFF */
-    await expect(await CheckboxV1PageObject.isCheckboxChecked()).toBeFalsy('The primary checkbox should initially be toggled off.');
+    await expect(await CheckboxV1PageObject.isCheckboxChecked())
+      .withContext('The primary checkbox should initially be toggled off.')
+      .toBeFalsy();
 
     /* Presses the "space bar" to select the Checkbox */
     await CheckboxV1PageObject.sendKeys(CheckboxV1PageObject._primaryComponent, [Keys.SPACE]);
@@ -111,6 +132,8 @@ describe('CheckboxV1 Functional Testing', () => {
       await CheckboxV1PageObject.waitForCheckboxToggle(false, "The primary checkbox should have been toggled off via 'Space' press."),
     ).toBeTruthy();
 
-    await expect(await CheckboxV1PageObject.didAssertPopup()).toBeFalsy(CheckboxV1PageObject.ERRORMESSAGE_ASSERT);
+    await expect(await CheckboxV1PageObject.didAssertPopup())
+      .withContext(CheckboxV1PageObject.ERRORMESSAGE_ASSERT)
+      .toBeFalsy();
   });
 });

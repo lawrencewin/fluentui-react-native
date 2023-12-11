@@ -1,8 +1,60 @@
 # Change Log - @fluentui-react-native/tokens
 
-This log was last generated on Mon, 05 Jun 2023 19:26:25 GMT and should not be manually modified.
+This log was last generated on Thu, 09 Nov 2023 02:39:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.22.0
+
+Thu, 09 Nov 2023 02:39:11 GMT
+
+### Minor changes
+
+- Update to react-native 0.72 (30809111+acoates-ms@users.noreply.github.com)
+- Bump @fluentui-react-native/adapters to v0.12.0
+- Bump @fluentui-react-native/theme-types to v0.33.0
+
+## 0.21.6
+
+Tue, 07 Nov 2023 20:20:36 GMT
+
+### Patches
+
+- Use RN-based dynamic type (adgleitm@microsoft.com)
+- Manually bump packages stuck in the pipeline (safreibe@microsoft.com)
+- Bump @fluentui-react-native/theme-types to v0.32.3
+
+## 0.21.4
+
+Mon, 30 Oct 2023 21:26:06 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/theme-types to v0.32.1
+
+## 0.21.3
+
+Tue, 29 Aug 2023 22:56:32 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.3
+
+## 0.21.2
+
+Mon, 14 Aug 2023 20:14:41 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.2
+
+## 0.21.1
+
+Fri, 07 Jul 2023 20:45:12 GMT
+
+### Patches
+
+- Bump @fluentui-react-native/adapters to v0.11.1
 
 ## 0.21.0
 

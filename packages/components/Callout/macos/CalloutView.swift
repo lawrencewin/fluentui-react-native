@@ -6,8 +6,9 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 
 	@objc public var target: NSNumber? {
 		didSet {
-			guard let targetView = bridge?.uiManager.view(forReactTag: target) else {
-				preconditionFailure("Invalid target react tag")
+			let targetView = bridge?.uiManager.view(forReactTag: target)
+			if (targetView == nil && target != nil) {
+				preconditionFailure("Invalid target")
 			}
 			anchorView = targetView
 			updateCalloutFrameToAnchor()
@@ -63,6 +64,14 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 		}
 	}
 
+	override func updateLayer() {
+		if let layer = calloutWindow.contentView?.layer {
+			layer.borderColor =  borderColor.cgColor
+			layer.borderWidth = borderWidth
+			layer.backgroundColor = backgroundColor.cgColor
+			layer.cornerRadius = borderRadius
+		}
+	}
 
 	// MARK: RCTComponent Overrides
 
@@ -169,9 +178,15 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 			return
 		}
 
-		// Prefer anchorRect over anchorView if available
-		let anchorScreenRect = anchorRect.equalTo(.null) ? calculateAnchorViewScreenRect() : calculateAnchorRectScreenRect()
+		// Prefer anchorView over anchorRect if available
+		let anchorScreenRect = anchorView != nil ? calculateAnchorViewScreenRect() : calculateAnchorRectScreenRect()
 		let calloutScreenRect = bestCalloutRect(relativeTo: anchorScreenRect)
+
+		// Because we immediately update the rect as props come in, there's a possibility that we have neither
+		// of anchorRect and target. Don't update until we have at least one.
+		guard !calloutScreenRect.isEmpty else {
+			return
+		}
 
 		proxyView.frame.origin = .zero
 		calloutWindow.setFrame(calloutScreenRect, display: false)
@@ -183,7 +198,7 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 			preconditionFailure("No window found")
 		}
 
-		guard let screenFrame = window.screen?.visibleFrame ?? NSScreen.main?.visibleFrame else {
+		if (window.screen == nil) {
 			preconditionFailure("No screen Available")
 		}
 
@@ -193,16 +208,14 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 		while (!rootView.isReactRootView()) {
 			rootView = rootView.reactSuperview()
 		}
-		let rootViewBoundsInWindow = rootView.convert(rootView.bounds, to: nil)
-		let rootViewRectInScreenCoordinates = window.convertToScreen(rootViewBoundsInWindow)
 
-		// macOS uses a flipped Y coordinate (I.E: (0,0) is on the bottom left of the screen). However,
-		// React Native assumes a standard Y coordinate. Let's flip the Y coordinate of our rect to match
-		let anchorScreenRectOrigin = NSPoint(
-			x: rootViewRectInScreenCoordinates.origin.x + self.anchorRect.origin.x,
-			y: screenFrame.height - (rootViewRectInScreenCoordinates.origin.y + self.anchorRect.origin.y)
-		)
-		let anchorRectInScreenCoordinates = NSRect(origin: anchorScreenRectOrigin, size: anchorRect.size)
+		let anchorRect = self.anchorRect
+
+		// Since the root view is flipped, we already have anchorRect in the "correct"
+		// (i.e. flipped) coordinate space. Since we need to provide screen rects to Apple,
+		// we will once again arrive at the "correct" (not flipped) coordinate space.
+		let anchorRectInWindow = rootView.convert(anchorRect, to: nil)
+		let anchorRectInScreenCoordinates = window.convertToScreen(anchorRectInWindow)
 
 		return anchorRectInScreenCoordinates
 	}
@@ -349,7 +362,7 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 
 	// MARK: Private variables
 
-	/// The view the Callout is presented from, if anchorRect is nil.
+	/// The view the Callout is presented from.
 	private var anchorView: NSView?
 
 	/// The  view we forward Callout's Children to. It's hosted within the CalloutWindow's
@@ -360,7 +373,6 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 		visualEffectView.material = .menu
 		visualEffectView.state = .active
 		visualEffectView.wantsLayer = true
-		visualEffectView.layer?.cornerRadius = calloutWindowCornerRadius
 
 		/**
 		 * We can't directly call touchHandler.attach(to:) because `visualEffectView` is not an RCTUIView.
@@ -393,7 +405,3 @@ class CalloutView: RCTView, CalloutWindowLifeCycleDelegate {
 
 	private var isCalloutWindowShown = false
 }
-
-
-
-private var calloutWindowCornerRadius: CGFloat = 5.0
