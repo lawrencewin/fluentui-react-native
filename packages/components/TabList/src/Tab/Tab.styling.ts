@@ -15,7 +15,7 @@ import type { TabListState } from '../TabList/TabList.types';
  * Hook to get the style props for each Tab slot.
  */
 export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme, context: TabListState): TabSlotProps => {
-  const { canShowAnimatedIndicator, selectedKey, vertical } = context;
+  const { canShowAnimatedIndicator, circular, selectedKey, vertical } = context;
 
   // Get each slot's props using our final tokens
   const root = React.useMemo<PressablePropsExtended>(
@@ -31,8 +31,9 @@ export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme
         ...(!vertical ? Platform.select({ macos: {}, default: { height: '100%' } }) : {}),
         ...borderStyles.from(tokens, theme),
       },
+      enableFocusRing: circular,
     }),
-    [tokens, theme, vertical],
+    [tokens, theme, vertical, circular],
   );
 
   const contentContainer = React.useMemo<IViewProps>(

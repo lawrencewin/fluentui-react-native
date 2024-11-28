@@ -8,11 +8,15 @@ import type { UseSlots } from '@fluentui-react-native/framework';
 import { compose, mergeProps, withSlots } from '@fluentui-react-native/framework';
 
 import { stylingSettings } from './TabList.styling';
-import type { TabListType, TabListProps } from './TabList.types';
+import type { TabListType, TabListProps, TabListState } from './TabList.types';
 import { tabListName } from './TabList.types';
 import { TabListContext } from './TabListContext';
 import { useTabList } from './useTabList';
 import TabListAnimatedIndicator from '../TabListAnimatedIndicator/TabListAnimatedIndicator';
+
+const tablistLookup = (layer: string, props: TabListProps, state: TabListState): boolean => {
+  return props[layer] || state[layer] || props.size === layer;
+};
 
 export const TabList = compose<TabListType>({
   displayName: tabListName,
@@ -27,8 +31,7 @@ export const TabList = compose<TabListType>({
     const tablist = useTabList(userProps);
 
     // Grab the styled slots.
-    const Slots = useSlots(userProps);
-
+    const Slots = useSlots(userProps, (layer) => tablistLookup(layer, tablist.props, tablist.state));
     // Return the handler to finish render.
     return (final: TabListProps, ...children: React.ReactNode[]) => {
       if (!tablist.state) {
@@ -37,7 +40,14 @@ export const TabList = compose<TabListType>({
 
       const { disabled, defaultTabbableElement, isCircularNavigation, vertical, ...mergedProps } = mergeProps(tablist.props, final);
 
-      const { animatedIndicatorStyles, canShowAnimatedIndicator, disabled: tablistDisabledState, layout, selectedKey } = tablist.state;
+      const {
+        animatedIndicatorStyles,
+        canShowAnimatedIndicator,
+        circular,
+        disabled: tablistDisabledState,
+        layout,
+        selectedKey,
+      } = tablist.state;
 
       return (
         <TabListContext.Provider
@@ -52,7 +62,7 @@ export const TabList = compose<TabListType>({
               isCircularNavigation={isCircularNavigation}
             >
               <Slots.stack>{children}</Slots.stack>
-              {canShowAnimatedIndicator && (
+              {canShowAnimatedIndicator && !circular && (
                 <TabListAnimatedIndicator
                   animatedIndicatorStyles={animatedIndicatorStyles}
                   selectedKey={selectedKey}

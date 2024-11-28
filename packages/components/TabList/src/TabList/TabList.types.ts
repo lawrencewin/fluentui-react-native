@@ -9,7 +9,7 @@ import type { AnimatedIndicatorStyles } from '../TabListAnimatedIndicator/TabLis
 
 export const tabListName = 'TabList';
 
-export type TabListAppearance = 'transparent' | 'subtle';
+export type TabListAppearance = 'transparent' | 'subtle' | 'filledCircular' | 'subtleCircular';
 export type TabListSize = 'small' | 'medium' | 'large';
 export interface TabListLayoutInfo {
   tablist: LayoutRectangle;
@@ -43,6 +43,11 @@ export interface TabListState {
    * Flag indicating whether the animated indicator has correct layout styles such that we can render it.
    */
   canShowAnimatedIndicator: boolean;
+
+  /**
+   * Set to true if the appearance of the tablist is one of the circular variants
+   */
+  circular?: boolean;
 
   /**
    * TabList's `disabled` prop
@@ -122,9 +127,18 @@ export interface TabListTokens extends LayoutTokens {
    * Controls direction of TabList items, controlled by 'vertical' prop
    */
   direction?: 'row' | 'column';
+
+  /**
+   * Space between individual tabs.
+   */
+  spacing?: number;
   /**
    * States
    */
+  circular?: TabListTokens;
+  small?: TabListTokens;
+  medium?: TabListTokens;
+  large?: TabListTokens;
   vertical?: TabListTokens;
 }
 

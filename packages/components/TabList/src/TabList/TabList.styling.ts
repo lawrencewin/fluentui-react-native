@@ -7,7 +7,7 @@ import { defaultTabListTokens } from './TabListTokens';
 
 export const stylingSettings: UseStylingOptions<TabListProps, TabListSlotProps, TabListTokens> = {
   tokens: [defaultTabListTokens, tabListName],
-  states: ['vertical'],
+  states: ['vertical', 'circular', 'small', 'medium', 'large'],
   slotProps: {
     stack: buildProps(
       (tokens: TabListTokens) => ({
@@ -15,6 +15,7 @@ export const stylingSettings: UseStylingOptions<TabListProps, TabListSlotProps, 
           display: 'flex',
           flexDirection: tokens.direction,
           flex: 0,
+          gap: tokens.spacing,
         },
       }),
       ['direction'],

@@ -147,6 +147,7 @@ export const useTabList = (props: TabListProps): TabListInfo => {
       animatedIndicatorStyles: userDefinedAnimatedIndicatorStyles,
       appearance: appearance,
       canShowAnimatedIndicator: !!(userDefinedAnimatedIndicatorStyles && listLayoutMap && listLayoutMap[selectedTabKey]),
+      circular: appearance === 'filledCircular' || appearance === 'subtleCircular',
       disabled: disabled || allTabsDisabled,
       invoked: invoked,
       layout: {

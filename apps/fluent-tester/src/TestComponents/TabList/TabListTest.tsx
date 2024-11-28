@@ -75,7 +75,7 @@ const TabListDisabledTest: React.FunctionComponent = () => {
 const TabListVariantsTest: React.FunctionComponent = () => {
   return (
     <View style={stackStyle}>
-      <Header>Size Variants</Header>
+      {/* <Header>Size Variants</Header>
       <Line />
       <SubHeader>Small</SubHeader>
       <PaddedTabList defaultSelectedKey="sm1" size="small">
@@ -94,28 +94,38 @@ const TabListVariantsTest: React.FunctionComponent = () => {
         <Tab tabKey="lg1">Large Tab 1</Tab>
         <Tab tabKey="lg2">Large Tab 2</Tab>
         <Tab tabKey="lg3">Large Tab 3</Tab>
-      </PaddedTabList>
+      </PaddedTabList> */}
       <Header>Appearance</Header>
       <Line />
-      <SubHeader>Transparent Appearance</SubHeader>
-      <PaddedTabList defaultSelectedKey="tab1" appearance="transparent">
+      {/* <SubHeader>Transparent Appearance</SubHeader> */}
+      {/* <PaddedTabList defaultSelectedKey="tab1" appearance="transparent">
         <Tab tabKey="tab1">Tab 1</Tab>
         <Tab tabKey="tab2">Tab 2</Tab>
         <Tab tabKey="tab3">Tab 3</Tab>
-      </PaddedTabList>
-      <SubHeader>Subtle Appearance</SubHeader>
+      </PaddedTabList> */}
+      {/* <SubHeader>Subtle Appearance</SubHeader> */}
       <PaddedTabList defaultSelectedKey="tab1" appearance="subtle">
         <Tab tabKey="tab1">Tab 1</Tab>
         <Tab tabKey="tab2">Tab 2</Tab>
         <Tab tabKey="tab3">Tab 3</Tab>
       </PaddedTabList>
-      <Header>Vertical Orientation</Header>
+      <PaddedTabList defaultSelectedKey="tab1" appearance="filledCircular">
+        <Tab tabKey="tab1">Tab 1</Tab>
+        <Tab tabKey="tab2">Tab 2</Tab>
+        <Tab tabKey="tab3">Tab 3</Tab>
+      </PaddedTabList>
+      <PaddedTabList defaultSelectedKey="tab1" appearance="subtleCircular">
+        <Tab tabKey="tab1">Tab 1</Tab>
+        <Tab tabKey="tab2">Tab 2</Tab>
+        <Tab tabKey="tab3">Tab 3</Tab>
+      </PaddedTabList>
+      {/* <Header>Vertical Orientation</Header>
       <Line />
       <PaddedTabList defaultSelectedKey="tab1" vertical>
         <Tab tabKey="tab1">Tab 1</Tab>
         <Tab tabKey="tab2">Tab 2</Tab>
         <Tab tabKey="tab3">Tab 3</Tab>
-      </PaddedTabList>
+      </PaddedTabList> */}
     </View>
   );
 };
@@ -186,27 +196,27 @@ const TabListViewTest: React.FunctionComponent = () => {
 };
 
 const sections: TestSection[] = [
-  {
-    name: 'TabList Controlled vs Uncontrolled',
-    component: TabListDefaultTest,
-    testID: TABLIST_TESTPAGE,
-  },
-  {
-    name: 'Disabled',
-    component: TabListDisabledTest,
-  },
+  // {
+  //   name: 'TabList Controlled vs Uncontrolled',
+  //   component: TabListDefaultTest,
+  //   testID: TABLIST_TESTPAGE,
+  // },
+  // {
+  //   name: 'Disabled',
+  //   component: TabListDisabledTest,
+  // },
   {
     name: 'Variants',
     component: TabListVariantsTest,
   },
-  {
-    name: 'Icon',
-    component: TabListIconTest,
-  },
-  {
-    name: 'Rendering Content Separately',
-    component: TabListViewTest,
-  },
+  // {
+  //   name: 'Icon',
+  //   component: TabListIconTest,
+  // },
+  // {
+  //   name: 'Rendering Content Separately',
+  //   component: TabListViewTest,
+  // },
 ];
 
 const e2eSections: TestSection[] = [

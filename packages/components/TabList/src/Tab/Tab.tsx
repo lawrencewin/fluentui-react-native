@@ -61,7 +61,6 @@ export const Tab = compressible<TabProps, TabTokens>((props: TabProps, useTokens
     if (!tab.state) {
       return null;
     }
-
     // Get label for Tab to use if there's no accessibilityLabel prop passed in.
     let label = '';
     let hasChildren = false;
@@ -107,9 +106,11 @@ export const Tab = compressible<TabProps, TabTokens>((props: TabProps, useTokens
             </ContentContainerSlot>
           )}
         </StackSlot>
-        <IndicatorContainerSlot>
-          <IndicatorSlot />
-        </IndicatorContainerSlot>
+        {!tablist.circular && (
+          <IndicatorContainerSlot>
+            <IndicatorSlot />
+          </IndicatorContainerSlot>
+        )}
       </RootSlot>
     );
   };

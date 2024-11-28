@@ -87,9 +87,12 @@ export interface TabTokens extends FontTokens, IBorderTokens, IForegroundColorTo
   small?: TabTokens;
   medium?: TabTokens;
   large?: TabTokens;
+  circular?: TabTokens;
   vertical?: TabTokens;
   transparent?: TabTokens;
   subtle?: TabTokens;
+  filledCircular?: TabTokens;
+  subtleCircular?: TabTokens;
   hovered?: TabTokens;
   focused?: TabTokens;
   pressed?: TabTokens;

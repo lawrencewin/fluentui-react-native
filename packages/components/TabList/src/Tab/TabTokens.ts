@@ -1,5 +1,6 @@
 import { buildUseTokens } from '@fluentui-react-native/framework';
 import type { Theme } from '@fluentui-react-native/framework';
+import { globalTokens } from '@fluentui-react-native/theme-tokens';
 import type { TokenSettings } from '@fluentui-react-native/use-styling';
 
 import type { TabTokens } from './Tab.types';
@@ -11,6 +12,7 @@ export const tabStates: (keyof TabTokens)[] = [
   'medium',
   'large',
   'vertical',
+  'circular',
   'hovered',
   'disabled',
   'selected',
@@ -18,6 +20,8 @@ export const tabStates: (keyof TabTokens)[] = [
   'pressed',
   'transparent',
   'subtle',
+  'filledCircular',
+  'subtleCircular',
   'hasIcon',
 ];
 
@@ -38,6 +42,16 @@ export const defaultTabTokens: TokenSettings<TabTokens, Theme> = {
     stackMarginHorizontal: 6,
     stackMarginVertical: 8,
     variant: 'body1',
+    vertical: {
+      indicatorMargin: 4,
+      stackMarginHorizontal: 6,
+      stackMarginVertical: 2,
+    },
+    circular: {
+      stackMarginHorizontal: globalTokens.size80,
+      stackMarginVertical: globalTokens.size40,
+      iconMargin: globalTokens.size20,
+    },
     selected: {
       variant: 'body1Strong',
     },
@@ -49,6 +63,16 @@ export const defaultTabTokens: TokenSettings<TabTokens, Theme> = {
     stackMarginHorizontal: 10,
     stackMarginVertical: 12,
     variant: 'body1',
+    vertical: {
+      indicatorMargin: 8,
+      stackMarginHorizontal: 10,
+      stackMarginVertical: 6,
+    },
+    circular: {
+      stackMarginHorizontal: globalTokens.size100,
+      stackMarginVertical: globalTokens.size60,
+      iconMargin: globalTokens.size40,
+    },
     selected: {
       variant: 'body1Strong',
     },
@@ -60,6 +84,16 @@ export const defaultTabTokens: TokenSettings<TabTokens, Theme> = {
     stackMarginHorizontal: 10,
     stackMarginVertical: 16,
     variant: 'body2',
+    large: {
+      indicatorMargin: 10,
+      stackMarginHorizontal: 10,
+      stackMarginVertical: 8,
+    },
+    circular: {
+      stackMarginHorizontal: globalTokens.size160,
+      stackMarginVertical: globalTokens.size80,
+      iconMargin: globalTokens.size40,
+    },
     selected: {
       variant: 'subtitle2',
     },
@@ -67,21 +101,10 @@ export const defaultTabTokens: TokenSettings<TabTokens, Theme> = {
   vertical: {
     flexDirection: 'row-reverse',
     indicatorOrientation: 'vertical',
-    small: {
-      indicatorMargin: 4,
-      stackMarginHorizontal: 6,
-      stackMarginVertical: 2,
-    },
-    medium: {
-      indicatorMargin: 8,
-      stackMarginHorizontal: 10,
-      stackMarginVertical: 6,
-    },
-    large: {
-      indicatorMargin: 10,
-      stackMarginHorizontal: 10,
-      stackMarginVertical: 8,
-    },
+  },
+  circular: {
+    borderRadius: globalTokens.corner.radiusCircular,
+    borderWidth: globalTokens.stroke.width10,
   },
   hasIcon: {
     contentMarginStart: 8,

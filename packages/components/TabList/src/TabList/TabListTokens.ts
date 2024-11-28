@@ -9,4 +9,15 @@ export const defaultTabListTokens: TokenSettings<TabListTokens, Theme> = () =>
     vertical: {
       direction: 'column',
     },
+    circular: {
+      small: {
+        spacing: 6,
+      },
+      medium: {
+        spacing: 6,
+      },
+      large: {
+        spacing: 12,
+      },
+    },
   } as TabListTokens);
