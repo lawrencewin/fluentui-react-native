@@ -37,7 +37,7 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
       backgroundColor: t.colors.brandBackground2,
       borderColor: t.colors.transparentBackground1,
       color: t.colors.brandForeground2,
-      iconColor: t.colors.brandForegroundd2,
+      iconColor: t.colors.brandForeground2,
     },
     filledCircular: {
       backgroundColor: t.colors.brandBackground1,
@@ -87,6 +87,12 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
         subtle: {
           indicatorColor: t.colors.compoundBrandStroke1Hover,
         },
+
+        filledCircular: {
+          backgroundColor: t.colors.brandBackgroundHover,
+          color: t.colors.neutralForegroundOnBrand,
+          iconColor: t.colors.neutralForegroundOnBrand,
+        },
       },
       disabled: {
         indicatorColor: t.colors.transparentBackground,
@@ -105,9 +111,9 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
         iconColor: t.colors.neutralForeground2Hover,
       },
       filledCircular: {
-        backgroundColor: t.colors.brandBackgroundHover,
-        color: t.colors.neutralForegroundOnBrand,
-        iconColor: t.colors.neutralForegroundOnBrand,
+        backgroundColor: t.colors.neutralBackground3Hover,
+        color: t.colors.neutralForeground2Hover,
+        iconColor: t.colors.neutralForeground2Hover,
       },
     },
     pressed: {

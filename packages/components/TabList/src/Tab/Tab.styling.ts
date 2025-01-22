@@ -15,11 +15,12 @@ import type { TabListState } from '../TabList/TabList.types';
  * Hook to get the style props for each Tab slot.
  */
 export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme, context: TabListState): TabSlotProps => {
-  const { canShowAnimatedIndicator, circular, selectedKey, vertical } = context;
+  const { canShowAnimatedIndicator, selectedKey, circular, vertical } = context;
 
   // Get each slot's props using our final tokens
-  const root = React.useMemo<PressablePropsExtended>(
-    () => ({
+  const root = React.useMemo<PressablePropsExtended>(() => {
+    const rootBorderStyles = circular ? { borderRadius: tokens.borderRadius, padding: 0, margin: 0 } : borderStyles.from(tokens, theme);
+    return {
       style: {
         display: 'flex',
         alignItems: 'center',
@@ -29,12 +30,11 @@ export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme
         padding: 1,
         backgroundColor: tokens.backgroundColor,
         ...(!vertical ? Platform.select({ macos: {}, default: { height: '100%' } }) : {}),
-        ...borderStyles.from(tokens, theme),
+        ...rootBorderStyles,
       },
       enableFocusRing: circular,
-    }),
-    [tokens, theme, vertical, circular],
-  );
+    };
+  }, [circular, tokens, theme, vertical]);
 
   const contentContainer = React.useMemo<IViewProps>(
     () => ({
@@ -65,8 +65,15 @@ export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme
     return {};
   }, [props.icon, tokens.iconColor, tokens.iconSize]);
 
-  const stack = React.useMemo<IViewProps>(
-    () => ({
+  const stack = React.useMemo<IViewProps>(() => {
+    const circularStyles = {
+      marginHorizontal: 0,
+      marginVertical: 0,
+      paddingHorizontal: tokens.stackMarginHorizontal,
+      paddingVertical: tokens.stackMarginVertical,
+      ...borderStyles.from(tokens, theme),
+    };
+    return {
       style: {
         display: 'flex',
         alignItems: 'center',
@@ -76,10 +83,10 @@ export const useTabSlotProps = (props: TabProps, tokens: TabTokens, theme: Theme
         justifyContent: 'center',
         marginHorizontal: tokens.stackMarginHorizontal,
         marginVertical: tokens.stackMarginVertical,
+        ...(circular ? circularStyles : {}),
       },
-    }),
-    [tokens.stackMarginHorizontal, tokens.stackMarginVertical],
-  );
+    };
+  }, [circular, theme, tokens]);
 
   const indicatorContainer = React.useMemo<IViewProps>(
     () => ({

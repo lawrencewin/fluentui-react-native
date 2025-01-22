@@ -59,7 +59,7 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
         backgroundColor: t.colors.brandBackground2,
         borderColor: t.colors.compoundBrandStroke1,
         color: t.colors.brandForeground2,
-        iconColor: t.colors.brandForegroundd2,
+        iconColor: t.colors.brandForeground2,
       },
       filledCircular: {
         backgroundColor: t.colors.brandBackgroundStatic,
@@ -87,6 +87,11 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
         subtle: {
           indicatorColor: isHighContrast(t) ? t.colors.neutralStroke1 : t.colors.compoundBrandStroke1Hover,
         },
+        filledCircular: {
+          backgroundColor: t.colors.brandBackgroundHover,
+          color: t.colors.neutralForegroundOnBrand,
+          iconColor: t.colors.neutralForegroundOnBrand,
+        },
       },
       disabled: {
         indicatorColor: t.colors.transparentBackground,
@@ -105,9 +110,9 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
         iconColor: t.colors.neutralForeground2Hover,
       },
       filledCircular: {
-        backgroundColor: t.colors.brandBackgroundHover,
-        color: t.colors.neutralForegroundOnBrand,
-        iconColor: t.colors.neutralForegroundOnBrand,
+        backgroundColor: t.colors.neutralBackground3Hover,
+        color: t.colors.neutralForeground2Hover,
+        iconColor: t.colors.neutralForeground2Hover,
       },
     },
     pressed: {
@@ -134,5 +139,8 @@ export const defaultTabColorTokens: TokenSettings<TabTokens, Theme> = (t: Theme)
     },
     focused: {
       borderColor: isHighContrast(t) ? t.colors.compoundBrandStroke1 : t.colors.neutralForeground1,
+      subtleCircular: {
+        borderColor: t.colors.transparentStroke,
+      },
     },
   } as TabTokens);
